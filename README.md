@@ -1,59 +1,26 @@
 # EasyQ
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.4.
+**EasyQ** is an intelligent quiz generation tool that allows users to generate quizzes from any article, link, topic, or custom text. Whether you're a student, educator, or professional, EasyQ helps you test your knowledge, compete with others, and discover trending topics.
 
-## Development server
+## Live Demo
+- **URL**: [EasyQ](https://vishalmysore.github.io/easyq/)
 
-To start a local development server, run:
+## Features
 
-```bash
-ng serve
-```
+### 🌟 Core Features:
+- **Automatic Quiz Generation** – Instantly creates quizzes from any article, text, or topic.
+- **AI-Powered Questioning** – Generates high-quality, meaningful questions based on the content.
+- **Topic-Based Questions** – Simply enter a topic (e.g., *Java, Global Summit, Boating Requirements in Canada*), and EasyQ will generate relevant questions.
+- **Trending Topics** – Discover the *top most asked topics* from the past week.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+### 🚀 Advanced Features:
+- **Customizable Tests** – Select the *number of questions, difficulty level, or enable rapid-fire mode*.
+- **Performance Benchmarking** – See the *average score* for a particular quiz to compare results.
+- **Compete with Others** – Pick an opponent and challenge them to a quiz.
+- **Social Sharing** – Share your quiz results on LinkedIn and other platforms.
+- **Leaderboard & Rankings** – View the *Top 10 results* for a specific quiz.
+- **Expert Assistance** – If you don’t understand a question, ask an expert for clarification.
 
-## Code scaffolding
+## Installation & Usage
+- **Installation**: EasyQ is available as a web application and can be accessed via any modern web browser.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
