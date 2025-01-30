@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import {CommonModule, NgForOf, NgIf} from '@angular/common';
 import { QuizService } from './service/quiz.service';
 import { ActivatedRoute } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -20,7 +21,7 @@ export class AppComponent implements OnInit {
   questions: any = null;
   mockQuestions: any = null;
   articleUrl: string | null = null;
-  constructor(private route: ActivatedRoute, private router: Router, private quizService: QuizService) {}
+  constructor(private http: HttpClient,private route: ActivatedRoute, private router: Router, private quizService: QuizService) {}
 
   ngOnInit() {
     this.mockQuestions = [
@@ -50,10 +51,27 @@ export class AppComponent implements OnInit {
     });
   }
   navigateToEndpoint() {
-    const endpoint = `https://example.com/api/${this.inputValue}`;
-    this.questions = this.mockQuestions;
-    this.quizService.setQuizResults(null); // Reset results
-   // this.router.navigateByUrl(endpoint);
+    const endpoint = `https://vishalmysore-easyqserver.hf.space/getQuestions?prompt=${this.inputValue}`;
+
+    // Reset previous results
+    this.quizService.setQuizResults(null);
+
+    // Fetch the questions from the API
+    this.http.get<any[]>(endpoint).subscribe(
+      (data) => {
+        this.questions = data.map(item => ({
+          id: item.IDOfQuestion,
+          text: item.TextofQuestion,
+          choices: item.Options,
+          answer: item.CorrectOption
+        }));
+
+        console.log('Fetched Questions:', this.questions); // Debugging
+      },
+      (error) => {
+        console.error('Error fetching quiz questions:', error);
+      }
+    );
   }
   submitQuiz() {
     // Optionally, you can validate the answers or do something with the selected answers
