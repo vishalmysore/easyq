@@ -72,6 +72,13 @@
     font-size: 24px;
     color: #333;
   }
+  .correct-answer {
+    color: green;
+  }
+
+  .incorrect-answer {
+    color: red;
+  }
 
   .quiz-results div {
     margin: 10px 0;
@@ -110,16 +117,22 @@
       <strong>Percentage Correct: </strong>{{ correctAnswersPercentage }}%
     </div>
 
-    <div *ngIf="wrongAnswers.length > 0">
-      <h3>Wrong Answers:</h3>
+    <div *ngIf="quizResults.length > 0">
+      <h3>Results :</h3>
       <ul>
-        <li *ngFor="let question of wrongAnswers">
+        <li *ngFor="let question of quizResults">
           <strong>{{ question.question }}</strong>
-          <p>Your answer: <strong>{{ question.answer }}</strong></p>
+          <p [ngClass]="{'correct-answer': question.isCorrect, 'incorrect-answer': !question.isCorrect}">
+            Your answer: <strong>{{ question.userAnswer }}</strong>
+          </p>
+          <p [ngClass]="{'correct-answer': question.isCorrect, 'incorrect-answer': !question.isCorrect}">
+            Correct answer: <strong>{{ question.answer }}</strong>
+          </p>
           <p>Explanation: {{ question.explanation }}</p>
         </li>
       </ul>
     </div>
+
 
     <div *ngIf="wrongAnswers.length === 0">
       <p>Congratulations! You got all the answers correct.</p>
@@ -130,16 +143,7 @@
       <a [href]="tutorialLink" target="_blank">Click here for further tutorials!</a>
     </div>
 
-    <div>
-      <strong>Correct Answers Explanation:</strong>
-      <ul>
-        <li *ngFor="let question of quizResults">
-          <strong>{{ question.question }}</strong>
-          <p>Correct answer: <strong>{{ question.answer }}</strong></p>
-          <p>Explanation: {{ question.explanation }}</p>
-        </li>
-      </ul>
-    </div>
+
   </div>
 
 </main>

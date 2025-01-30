@@ -1,11 +1,22 @@
-# EasyQ
+# EasyQZ 🧠📖
 
-**EasyQ** is an intelligent quiz generation tool that allows users to generate quizzes from any article, link, topic, or custom text. Whether you're a student, educator, or professional, EasyQ helps you test your knowledge, compete with others, and discover trending topics.
+**EasyQZ** is an intelligent quiz generation tool that allows users to generate quizzes from any article, link, topic, or custom text. Whether you're a student, educator, or professional, EasyQ helps you test your knowledge, compete with others, and discover trending topics.
 
 ## Live Demo
-- **URL**: [EasyQ](https://vishalmysore.github.io/easyq/)
+- **URL**: [EasyQZ](https://vishalmysore.github.io/easyq/)
 
-## Features
+## Enable EasyQZ for Your Article
+
+To enable EasyQZ for your article, all you need to do is add the following link inside your article. You don't need to do anything else:
+
+```html
+<a href="https://vishalmysore.github.io/easyq/" target="_blank">
+  Test with EasyQZ
+</a>
+```
+
+
+
 
 ### 🌟 Core Features:
 - **Automatic Quiz Generation** – Instantly creates quizzes from any article, text, or topic.
@@ -20,7 +31,15 @@
 - **Social Sharing** – Share your quiz results on LinkedIn and other platforms.
 - **Leaderboard & Rankings** – View the *Top 10 results* for a specific quiz.
 - **Expert Assistance** – If you don’t understand a question, ask an expert for clarification.
+- **User Engagement Insights** – Track *how many users have taken a quiz* for an article.
+- **Section-Wise Performance** – Identify *which sections need improvement* based on quiz results.
+- **Overall Feedback** – Get a *summary of performance trends* to enhance learning.
+
+## Contributions 🤝
+Contributions are welcome! Feel free to submit issues, feature requests, or pull requests.
+
+## License 📜
+MIT License
 
 ## Installation & Usage
-- **Installation**: EasyQ is available as a web application and can be accessed via any modern web browser.
-
+- **Installation**: EasyQZ is available as a web application and can be accessed via any modern web browser.
