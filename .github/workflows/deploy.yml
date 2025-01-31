@@ -16,7 +16,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '16'  # Latest LTS Node.js version
+          node-version: '22'  # Latest LTS Node.js version
 
       - name: Create .env file from GitHub environment variables
         run: |
