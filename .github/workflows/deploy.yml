@@ -8,25 +8,32 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        
+
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '14'
-        
+          node-version: '16'  # Latest LTS Node.js version
+
+      - name: Create .env file from GitHub environment variables
+        run: |
+          echo "VITE_API_URL=${{ secrets.VITE_API_URL }}" > .env
+          echo "VITE_API_USER=${{ secrets.VITE_API_USER }}" >> .env
+          echo "VITE_API_PASS=${{ secrets.VITE_API_PASS }}" >> .env
+
       - name: Install dependencies
         run: npm install
-        
+
       - name: Build Angular project
-        run: npm run build -- --prod --base-href=/easyqz/  # Ensure the base href is set to the subdirectory
-        
+        run: npm run build -- --prod --base-href=/easyqz/
+
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          branch: gh-pages  # Deploy to the gh-pages branch
-          folder: dist/easy-q  # Make sure this matches your build folder path
-          target-folder: /easyqz/  # Deploy to a specific subdirectory
+          branch: gh-pages
+          folder: dist/easy-q
+          target-folder: /easyqz/
+  # Deploy to a specific subdirectory
