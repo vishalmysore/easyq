@@ -369,15 +369,15 @@
       <div class="bottom-side" *ngIf="questions">
         <h3>Quiz Questions:</h3>
         <div *ngFor="let question of questions">
-          <p><strong>{{ question.text }}</strong></p>
+          <p><strong>{{ question.questionText }}</strong></p>
           <ul class="question-choices">
-            <li *ngFor="let choice of question.choices">
+            <li *ngFor="let choice of question.answerChoices">
               <input
                 type="radio"
-                [name]="question.id"
+                [name]="question.questionId"
                 [value]="choice"
-                (change)="captureAnswer(question.id, choice)"
-                [checked]="selectedAnswers[question.id] === choice"
+                (change)="captureAnswer(question.questionId, choice)"
+                [checked]="selectedAnswers[question.questionId] === choice"
               />
               {{ choice }}
             </li>

@@ -11,6 +11,7 @@ import { HttpClient } from '@angular/common/http';
 import {QuizResult} from './models/quiz-results-model';
 import {Environment} from '@angular/cli/lib/config/workspace-schema';
 import {environment} from '../environments/environment';
+import {Question} from './models/question.model';
 
 @Component({
   selector: 'app-root',
@@ -51,10 +52,10 @@ export class AppComponent implements OnInit {
     this.http.get<any[]>(endpoint).subscribe(
       (data) => {
         this.questions = data.map(item => ({
-          id: item.IDOfQuestion,
-          text: item.TextofQuestion,
-          choices: item.Options,
-          answer: item.CorrectOption
+          questionId: item.questionId,           // Mapping 'id' to 'questionId'
+          questionText: item.questionText,       // Mapping 'text' to 'questionText'
+          answerChoices: item.answerChoices,   // Mapping 'choices' to 'answerChoices'
+          correctAnswer: item.correctAnswer     // Mapping 'answer' to 'correctAnswer'
         }));
 
         console.log('Fetched Questions:', this.questions); // Debugging
@@ -77,19 +78,19 @@ export class AppComponent implements OnInit {
 
     let correctCount = 0;
     let evaluatedResults: QuizResult[] = this.questions.map((question: any) => {
-      const userAnswer = this.selectedAnswers[question.id] || null;
-      const isCorrect = userAnswer === question.answer;
-      this.quizService.setUserAnswer(question.id, userAnswer);
+      const userAnswer = this.selectedAnswers[question.questionId] || null;
+      const isCorrect = userAnswer === question.correctAnswer;
+      this.quizService.setUserAnswer(question.questionId, userAnswer);
 
       if (isCorrect) {
         correctCount++;
       }
 
       return {
-        id: question.id,
-        question: question.text,
-        choices: question.choices,
-        answer: question.answer, // The correct answer
+        id: question.questionId,
+        question: question.questionText,
+        choices: question.answerChoices,
+        answer: question.correctAnswer, // The correct answer
         userAnswer: userAnswer,
         isCorrect: isCorrect, // Added correctness flag
         explanation: question.explanation || ""
