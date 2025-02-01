@@ -325,6 +325,19 @@
 
     <div class="divider" role="separator" aria-label="Divider"></div>
     <div class="right-side">
+      <div class="container">
+
+
+        <div *ngIf="trendingArticles.length > 0">
+          <h2>Trending Articles (Last Hour)</h2>
+          <ul>
+            <li *ngFor="let article of trendingArticles">
+              <a [href]="article.url" target="_blank">{{ article.url }}</a>
+              by {{ article.author }} (Views: {{ article.totalAccessCount }})
+            </li>
+          </ul>
+        </div>
+      </div>
       <div class="pill-group">
         @for (item of [
           { title: 'What is EasyQZ?', link: 'https://github.com/vishalmysore/easyq' },

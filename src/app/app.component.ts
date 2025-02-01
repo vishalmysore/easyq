@@ -12,7 +12,8 @@ import {QuizResult} from './models/quiz-results-model';
 import {Environment} from '@angular/cli/lib/config/workspace-schema';
 import {environment} from '../environments/environment';
 import {Question} from './models/question.model';
-
+import { LinkService } from './service/link.service'
+import { Link } from './models/link.model';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -26,7 +27,8 @@ export class AppComponent implements OnInit {
   questions: any = null;
   isLoading: boolean = false;
   articleUrl: string | null = null;
-  constructor(private http: HttpClient,private route: ActivatedRoute, private router: Router, private quizService: QuizService) {}
+  trendingArticles: Link[] = [];
+  constructor(private http: HttpClient,private route: ActivatedRoute, private router: Router, private quizService: QuizService,private linkService: LinkService) {}
 
   ngOnInit() {
     console.log(environment.apiUrl);
@@ -71,6 +73,17 @@ export class AppComponent implements OnInit {
 
   captureAnswer(questionId: string, selectedChoice: string) {
     this.selectedAnswers[questionId] = selectedChoice; // Store selected answer
+  }
+
+  fetchTrendingArticles() {
+    this.linkService.getTrendingLinks().subscribe(
+      (data) => {
+        this.trendingArticles = data;
+      },
+      (error) => {
+        console.error('Error fetching trending articles:', error);
+      }
+    );
   }
 
   submitQuiz() {

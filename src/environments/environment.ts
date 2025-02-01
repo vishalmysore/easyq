@@ -1,3 +1,3 @@
 export const environment = {
-  apiUrl: "https://vishalmysore-easyqserver.hf.space/api/"
+  apiUrl: "http://localhost:7860/api/"
 };
