@@ -23,11 +23,12 @@ jobs:
         run: npm install
 
       - name: Build Angular project
-        run: npm run build -- --configuration production  --base-href=/easyqz/
+        run: npm run build --base-href=/easyqz/
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
-          folder: /easyqz/
+          folder: dist/easy-q
+          target-folder: /easyqz/
   # Deploy to a specific subdirectory
