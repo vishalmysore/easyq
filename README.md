@@ -1,6 +1,6 @@
 # EasyQZ 🧠📖
 
-**EasyQZ** is an intelligent quiz generation tool that allows users to generate quizzes from any article, link, topic, or custom text. Whether you're a student, educator, or professional, EasyQ helps you test your knowledge, compete with others, and discover trending topics.
+**EasyQZ** is an AI Powered Knowledge enhancer and Quiz Generation tool that allows users to generate quizzes from any article, link, topic, or custom text. Whether you're a student, educator, or professional, EasyQ helps you test your knowledge, compete with others, and discover trending topics.
 
 ## Live Demo
 - **URL**: [EasyQZ](https://vishalmysore.github.io/easyq/)
@@ -10,7 +10,7 @@
 To enable EasyQZ for your article, all you need to do is add the following link inside your article. You don't need to do anything else:
 
 ```html
-<a href="https://vishalmysore.github.io/easyq/" target="_blank">
+<a href="https://vishalmysore.github.io/easyqz/" target="_blank">
   Test with EasyQZ
 </a>
 ```
