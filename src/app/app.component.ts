@@ -9,6 +9,9 @@ import { QuizService } from './service/quiz.service';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import {QuizResult} from './models/quiz-results-model';
+import {Environment} from '@angular/cli/lib/config/workspace-schema';
+import {environment} from '../environments/environment';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -25,7 +28,7 @@ export class AppComponent implements OnInit {
   constructor(private http: HttpClient,private route: ActivatedRoute, private router: Router, private quizService: QuizService) {}
 
   ngOnInit() {
-
+    console.log(environment.apiUrl);
     this.route.queryParams.subscribe(params => {
       this.articleUrl = params['url'] || document.referrer || null;
 
@@ -39,7 +42,7 @@ export class AppComponent implements OnInit {
     });
   }
   navigateToEndpoint() {
-    const endpoint = `https://vishalmysore-easyqserver.hf.space/getQuestions?prompt=${this.inputValue}`;
+    const endpoint = `${environment.apiUrl}getQuestions?prompt=${this.inputValue}`;
 
     // Reset previous results
     this.quizService.setQuizResults(null);

@@ -19,12 +19,6 @@ jobs:
         with:
           node-version: '22'  # Latest LTS Node.js version
 
-      - name: Create .env file from GitHub environment variables
-        run: |
-          echo "VITE_API_URL=${{ secrets.VITE_API_URL }}" > .env
-          echo "VITE_API_USER=${{ secrets.VITE_API_USER }}" >> .env
-          echo "VITE_API_PASS=${{ secrets.VITE_API_PASS }}" >> .env
-
       - name: Install dependencies
         run: npm install
 
