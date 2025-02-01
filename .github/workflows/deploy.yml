@@ -29,6 +29,6 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
-          folder: easyqz/dist/easy-q
+          folder: dist/easy-q
           target-folder: /easyqz/
   # Deploy to a specific subdirectory
