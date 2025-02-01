@@ -146,6 +146,7 @@
     flex-direction: row; /* Ensure items are aligned horizontally */
     flex-wrap: wrap; /* Allow items to wrap to the next line if needed */
     gap: 1.25rem; /* Adjust spacing between pills */
+    margin-top: 1.75rem;
   }
 
   .left-side {
@@ -268,7 +269,19 @@
   .social-links a:hover svg path {
     fill: var(--gray-900);
   }
+  .button-container {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    gap: 10px; /* Adjust spacing between buttons */
+    justify-content: center; /* Center them if needed */
+    width: 100%; /* Ensures it doesn't collapse */
+  }
 
+  .disabled-container {
+    pointer-events: none; /* Disables clicks */
+    opacity: 0.5; /* Makes it visually disabled */
+  }
 
   @media screen and (max-width: 650px) {
     .content {
@@ -293,10 +306,17 @@
            height="104" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 2048 2048" style="enable-background:new 0 0 2048 2048" xml:space="preserve"><style>.st1{fill:#3582a8}</style><path d="M256 1544.63V503.37c0-22.09 17.91-40 40-40h1456c22.09 0 40 17.91 40 40v1041.27c0 22.09-17.91 40-40 40H296c-22.09-.01-40-17.92-40-40.01z" style="fill:#c4e2ff"/><path class="st1" d="M1228.75 805.23H506.17c-13.68 0-24.77-11.09-24.77-24.77s11.09-24.77 24.77-24.77h722.58c13.68 0 24.77 11.09 24.77 24.77.01 13.68-11.08 24.77-24.77 24.77zM1228.75 953.88H506.17c-13.68 0-24.77-11.09-24.77-24.77s11.09-24.77 24.77-24.77h722.58c13.68 0 24.77 11.09 24.77 24.77.01 13.67-11.08 24.77-24.77 24.77z"/><g><path class="st1" d="M1469.57 933.65c-13.68 0-24.77-11.09-24.77-24.77v-76.39c0-13.68 11.09-24.77 24.77-24.77 26.18 0 47.48-21.3 47.48-47.48 0-26.18-21.3-47.48-47.48-47.48-18.48 0-35.43 10.85-43.16 27.65-5.72 12.43-20.44 17.86-32.87 12.14-12.43-5.72-17.86-20.44-12.14-32.87 15.8-34.31 50.41-56.47 88.17-56.47 53.5 0 97.03 43.53 97.03 97.03 0 44.94-30.72 82.85-72.26 93.83v54.82c0 13.67-11.09 24.76-24.77 24.76z"/><circle class="st1" cx="1469.57" cy="990" r="31.58"/></g><g><path transform="rotate(90 1040.966 1300.35)" style="fill:#ffe07d" d="M979.36 1052.42h123.2v495.87h-123.2z"/><path style="fill:#ffc4b0" d="M793.03 1361.95v-123.2l-124.52 61.6z"/><path d="M1288.9 1361.95v-123.2h39.15c28.41 0 51.44 23.03 51.44 51.44v20.32c0 28.41-23.03 51.44-51.44 51.44h-39.15z" style="fill:#dd636e"/><path style="fill:#666" d="m727.47 1271.18-58.96 29.17 58.96 29.17v-58.34z"/></g></svg>
 
       <h1 class="easyq-text">{{ title }}</h1>
-      <p>Test your knowledge on any article</p>
+      <p>Enhance Your Knowledge with AI-Driven Tools and Insights</p>
       <div class="left-side">
         <input type="text" [(ngModel)]="inputValue" placeholder="Link for the article" />
-        <button (click)="navigateToEndpoint()" [disabled]="isLoading">Go</button>
+
+        <div [ngClass]="{ 'disabled-container': isLoading }" class="button-container">
+          <button (click)="navigateToEndpoint(1)">Easy</button>
+          <button (click)="navigateToEndpoint(2)">Tough</button>
+          <button (click)="navigateToEndpoint(3)">Tougher</button>
+          <button (click)="navigateToEndpoint(4)">Crazy?</button>
+        </div>
+
         <div *ngIf="isLoading" class="loading-spinner">
           <p>Loading...</p> <!-- You can replace this with a spinner or any other indicator -->
         </div>

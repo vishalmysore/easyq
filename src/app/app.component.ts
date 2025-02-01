@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import {CommonModule, NgForOf, NgIf} from '@angular/common';
+import { CommonModule, NgClass, NgForOf, NgIf } from '@angular/common';
 import { QuizService } from './service/quiz.service';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -18,7 +18,7 @@ import {Question} from './models/question.model';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'], // Note: This should be `styleUrls`, not `styleUrl`
   standalone: true,
-  imports: [RouterOutlet, FormsModule, NgForOf, NgIf], // Add FormsModule here
+  imports: [RouterOutlet, FormsModule, NgForOf, NgIf,NgClass], // Add FormsModule here
 })
 export class AppComponent implements OnInit {
   title = 'EasyQZ';
@@ -38,12 +38,12 @@ export class AppComponent implements OnInit {
       } else {
         // Redirect to the actual quiz page with the detected URL
        this.inputValue = this.articleUrl;
-       this.navigateToEndpoint();
+       this.navigateToEndpoint(1);
       }
     });
   }
-  navigateToEndpoint() {
-    const endpoint = `${environment.apiUrl}getQuestions?prompt=${this.inputValue}`;
+  navigateToEndpoint(difficulty: number) {
+    const endpoint = `${environment.apiUrl}getQuestions?prompt=${this.inputValue}&difficulty=${difficulty}`;
 
     // Reset previous results
     this.quizService.setQuizResults(null);
