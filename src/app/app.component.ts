@@ -14,12 +14,14 @@ import {environment} from '../environments/environment';
 import {Question} from './models/question.model';
 import { LinkService } from './service/link.service'
 import { Link } from './models/link.model';
+import { UsergenComponent } from './usergen/usergen.component';
+import { EasyqheaderComponent } from './easyqheader/easyqheader.component';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'], // Note: This should be `styleUrls`, not `styleUrl`
   standalone: true,
-  imports: [RouterOutlet, FormsModule, NgForOf, NgIf,NgClass], // Add FormsModule here
+  imports: [RouterOutlet, FormsModule, NgForOf, NgIf, NgClass, UsergenComponent, EasyqheaderComponent] // Add FormsModule here
 })
 export class AppComponent implements OnInit {
   title = 'EasyQZ';
