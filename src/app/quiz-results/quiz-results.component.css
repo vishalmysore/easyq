@@ -1,0 +1,74 @@
+.quiz-results-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh; /* Ensures full-page height */
+  padding: 1rem;
+  box-sizing: border-box;
+  overflow: auto; /* Ensures scrolling if content overflows */
+  margin-bottom: 50px; /* Add space at bottom */
+}
+
+.quiz-results {
+  width: 100%;
+  max-width: 600px; /* Keeps it from stretching too wide */
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+}
+
+.quiz-results h2 {
+  font-size: 24px;
+  color: #333;
+}
+
+.correct-answer {
+  color: green;
+}
+
+.incorrect-answer {
+  color: red;
+}
+
+.quiz-results div {
+  margin: 10px 0;
+}
+
+.quiz-results ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.quiz-results li {
+  margin: 10px 0;
+}
+
+.tutorial-link {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.tutorial-link p {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.tutorial-link a {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #007bff;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  transition: all 0.3s ease-in-out;
+  text-decoration: none;
+}
+
+.tutorial-link a:hover {
+  background: #0056b3;
+  text-decoration: none;
+}

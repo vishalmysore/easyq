@@ -1,14 +1,14 @@
 .top-left {
   display: flex;
   gap: 1rem;
-  font-size: 0.9rem;
+  font-size: 0.75rem; /* Smaller font size */
   font-weight: 600;
 }
 
 .top-left a {
   text-decoration: none;
   color: #007bff;
-  padding: 0.3rem 0.6rem;
+  padding: 0.2rem 0.5rem; /* Smaller padding for more compact look */
   border-radius: 15px;
   background: rgba(0, 123, 255, 0.1);
   transition: all 0.3s ease-in-out;

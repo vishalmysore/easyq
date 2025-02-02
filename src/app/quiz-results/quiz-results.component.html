@@ -1,124 +1,17 @@
-<style>
-  :host {
-    --bright-blue: oklch(51.01% 0.274 263.83);
-    --electric-violet: oklch(53.18% 0.28 296.97);
-    --french-violet: oklch(47.66% 0.246 305.88);
-    --vivid-pink: oklch(69.02% 0.277 332.77);
-    --hot-red: oklch(61.42% 0.238 15.34);
-    --orange-red: oklch(63.32% 0.24 31.68);
-
-    --gray-900: oklch(19.37% 0.006 300.98);
-    --gray-700: oklch(36.98% 0.014 302.71);
-    --gray-400: oklch(70.9% 0.015 304.04);
-
-    --red-to-pink-to-purple-vertical-gradient: linear-gradient(
-      180deg,
-      var(--orange-red) 0%,
-      var(--vivid-pink) 50%,
-      var(--electric-violet) 100%
-    );
-
-    --red-to-pink-to-purple-horizontal-gradient: linear-gradient(
-      90deg,
-      var(--orange-red) 0%,
-      var(--vivid-pink) 50%,
-      var(--electric-violet) 100%
-    );
-
-    --pill-accent: var(--bright-blue);
-
-    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-    "Segoe UI Symbol";
-    box-sizing: border-box;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  h1 {
-    font-size: 3.125rem;
-    color: var(--gray-900);
-    font-weight: 500;
-    line-height: 100%;
-    letter-spacing: -0.125rem;
-    margin: 0;
-    font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-    "Segoe UI Symbol";
-  }
-
-  p {
-    margin: 0;
-    color: var(--gray-700);
-    text-align: center;
-  }
-
-  main {
-    width: 100%;
-    min-height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem;
-    box-sizing: inherit;
-    position: relative;
-  }
-  .quiz-results {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-  }
-
-  .quiz-results h2 {
-    font-size: 24px;
-    color: #333;
-  }
-  .correct-answer {
-    color: green;
-  }
-
-  .incorrect-answer {
-    color: red;
-  }
-
-  .quiz-results div {
-    margin: 10px 0;
-  }
-
-  .quiz-results a {
-    color: #007bff;
-    text-decoration: none;
-  }
-
-  .quiz-results a:hover {
-    text-decoration: underline;
-  }
-
-  .quiz-results ul {
-    list-style-type: none;
-  }
-
-  .quiz-results li {
-    margin: 10px 0;
-  }
-
-  .quiz-results strong {
-    color: #333;
-  }
-  </style>
-<main class="main">
-  <div class="quiz-results"  *ngIf="quizResults && quizResults.length > 0">
+<div class="quiz-results-container">
+  <div class="quiz-results" *ngIf="quizResults && quizResults.length > 0">
     <h2>Quiz Results</h2>
 
     <div>
-      <strong>Total Score: </strong>{{ totalScore }} / {{ quizResults.length }}
+      <strong>Total Score:</strong> {{ totalScore }} / {{ quizResults.length }}
     </div>
 
     <div>
-      <strong>Percentage Correct: </strong>{{ correctAnswersPercentage }}%
+      <strong>Percentage Correct:</strong> {{ correctAnswersPercentage }}%
     </div>
 
     <div *ngIf="quizResults.length > 0">
-      <h3>Results :</h3>
+      <h3>Results:</h3>
       <ul>
         <li *ngFor="let question of quizResults">
           <strong>{{ question.question }}</strong>
@@ -133,18 +26,14 @@
       </ul>
     </div>
 
-
     <div *ngIf="wrongAnswers.length === 0">
-      <p>Congratulations! You got all the answers correct.</p>
+      <p>🎉 Congratulations! You got all the answers correct.</p>
     </div>
 
-    <div>
-      <strong>Want to learn more? </strong>
-      <a [href]="tutorialLink" target="_blank">Click here for further tutorials!</a>
+    <!-- Improved "Click here for further tutorials" -->
+    <div class="tutorial-link">
+      <p>🔗 Want to learn more?</p>
+      <a [href]="tutorialLink" target="_blank">Click here for further tutorials</a>
     </div>
-
-
   </div>
-
-</main>
-
+</div>
