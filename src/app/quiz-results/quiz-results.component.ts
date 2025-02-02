@@ -2,14 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { QuizResult } from '../models/quiz-results-model';
 import { QuizService } from '../service/quiz.service';
 import {CommonModule, NgClass, NgForOf, NgIf} from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import { RouterLink, RouterOutlet } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import {ResultsComponent} from '../results-component/results-component.component';
 
 @Component({
   selector: 'app-quiz-results',
   templateUrl: './quiz-results.component.html',
   styleUrls: ['./quiz-results.component.css'],
-  imports: [FormsModule, NgForOf, NgIf, NgClass], // Add FormsModule here
+  imports: [FormsModule, NgForOf, NgIf, NgClass,  ResultsComponent] // Add FormsModule here
 })
 export class QuizResultsComponent implements OnInit {
   totalScore: number = 0;
@@ -55,4 +56,5 @@ export class QuizResultsComponent implements OnInit {
       ? (correctCount / this.quizResults.length) * 100
       : 0;
   }
+
 }

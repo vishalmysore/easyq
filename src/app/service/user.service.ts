@@ -20,6 +20,8 @@ export class UserService {
         // Store the token in session storage or local storage
         const token = response.token;  // Assuming the response contains the token
         sessionStorage.setItem('jwtToken', token);
+        localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('jwtToken', token);
       },
       (error) => {
         console.error('Error creating user:', error);

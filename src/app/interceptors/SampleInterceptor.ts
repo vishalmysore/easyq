@@ -7,7 +7,7 @@ export class SampleInterceptor implements HttpInterceptor {
   constructor() { }
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     console.log("Intercepting Requests")
-    const token = sessionStorage.getItem('jwtToken'); // Or localStorage, depending on your choice
+    const token = sessionStorage.getItem('jwtToken') || localStorage.getItem('jwtToken');
 
     // If token exists, clone the request and add the Authorization header
     if (token) {

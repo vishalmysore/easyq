@@ -4,6 +4,7 @@ import { provideHttpClient, withInterceptors, withInterceptorsFromDi } from '@an
 import { routes } from './app.routes';
 import { SampleInterceptor } from './interceptors/SampleInterceptor';
 import {  HTTP_INTERCEPTORS } from '@angular/common/http';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),  // Keep this as is
@@ -13,6 +14,6 @@ export const appConfig: ApplicationConfig = {
       provide:HTTP_INTERCEPTORS,
       useClass:SampleInterceptor,
       multi:true
-    }
+    }, provideAnimationsAsync()
   ]
 };

@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
 import { generateUsername } from 'unique-username-generator';
 import {UserService} from '../service/user.service';
+import { MatButton } from '@angular/material/button';
 @Component({
   selector: 'app-usergen',
-  imports: [],
+  imports: [
+    MatButton
+  ],
   templateUrl: './usergen.component.html',
   styleUrl: './usergen.component.css'
 })

@@ -1,0 +1,9 @@
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 50px; /* Adds space above the footer */
+  margin-top: 30px; /* Adds space from the content above */
+  padding: 20px; /* Adds spacing around the buttons */
+  text-align: center;
+}

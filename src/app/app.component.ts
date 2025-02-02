@@ -1,4 +1,4 @@
-import { Component,OnInit  } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Router } from '@angular/router';
 import { NgModule } from '@angular/core';
@@ -17,12 +17,14 @@ import { Link } from './models/link.model';
 import { UsergenComponent } from './usergen/usergen.component';
 import { EasyqheaderComponent } from './easyqheader/easyqheader.component';
 import { FooterComponent } from './footer/footer.component';
+import { MatButton } from '@angular/material/button';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'], // Note: This should be `styleUrls`, not `styleUrl`
   standalone: true,
-  imports: [RouterOutlet, FormsModule, NgForOf, NgIf, NgClass, UsergenComponent, EasyqheaderComponent, NgOptimizedImage, FooterComponent] // Add FormsModule here
+  imports: [RouterOutlet, FormsModule, NgForOf, NgIf, NgClass, UsergenComponent, EasyqheaderComponent, NgOptimizedImage, FooterComponent, MatButton]// Add FormsModule here
 })
 export class AppComponent implements OnInit {
   title = 'EasyQZ';
@@ -31,6 +33,8 @@ export class AppComponent implements OnInit {
   isLoading: boolean = false;
   articleUrl: string | null = null;
   trendingArticles: Link[] = [];
+  quizSubmitted = false;
+  scrolled = false;
   constructor(private http: HttpClient,private route: ActivatedRoute, private router: Router, private quizService: QuizService,private linkService: LinkService) {}
 
   ngOnInit() {
@@ -49,7 +53,9 @@ export class AppComponent implements OnInit {
   }
   navigateToEndpoint(difficulty: number) {
     const endpoint = `${environment.apiUrl}getQuestions?prompt=${this.inputValue}&difficulty=${difficulty}`;
-
+    this.quizSubmitted = false;
+    this.questions = null;
+    this.scrolled = false;
     // Reset previous results
     this.quizService.setQuizResults(null);
     this.isLoading = true;
@@ -116,8 +122,25 @@ export class AppComponent implements OnInit {
     // Set computed results instead of mock results
     this.quizService.setQuizResults(evaluatedResults);
     this.quizService.setCurrentCount(correctCount);
-
+    this.quizSubmitted = true;
+    this.scrollToResults();
     // Navigate to the results page
     this.router.navigate(['/quiz-results']);
+  }
+  scrollToResults() {
+    setTimeout(() => {
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: 'smooth'
+      });
+    }, 500); // Delay to allow the message to show before scrolling
+  }
+
+  // Listen for scroll events
+  @HostListener('window:scroll', ['$event'])
+  onWindowScroll() {
+    if (window.scrollY > 50) {
+      this.scrolled = true; // Hide the scroll prompt when scrolling
+    }
   }
 }

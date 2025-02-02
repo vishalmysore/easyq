@@ -1,0 +1,42 @@
+.submit-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px; /* Adds space above the footer */
+}
+.scroll-prompt {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.7);  /* Semi-transparent black */
+  color: white;
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+  z-index: 9999;
+  font-size: 16px;
+  transition: opacity 0.5s ease-in-out;  /* Smooth fade-out transition */
+}
+
+.scroll-prompt.hide {
+  opacity: 0;  /* Hide the message when scrolled */
+  pointer-events: none;  /* Disable interactions with the message */
+}
+
+.scroll-prompt p {
+  margin: 0;
+}
+
+.scroll-prompt button {
+  margin-top: 10px;
+  background-color: #ff5722;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.scroll-prompt button:hover {
+  background-color: #e64a19;
+}

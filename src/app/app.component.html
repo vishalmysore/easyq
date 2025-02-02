@@ -403,15 +403,23 @@
 
     <div class="left-side">
       <img ngSrc="easylogo2.png" class="angular-logo" alt="Angular Logo" priority width="187" height="245">
-      <p>Enhance Your Knowledge and with AI-Driven Tools and Insights</p>
+      <p>Enhance Your Knowledge with AI-Driven Insights</p>
       <div class="left-side">
         <input type="text" [(ngModel)]="inputValue" placeholder="Any Topic or Link : Java Basics, World Economy, Cricket" />
 
         <div [ngClass]="{ 'disabled-container': isLoading }" class="button-container">
-          <button (click)="navigateToEndpoint(1)">Easy</button>
-          <button (click)="navigateToEndpoint(2)">Tough</button>
-          <button (click)="navigateToEndpoint(3)">Tougher</button>
-          <button (click)="navigateToEndpoint(4)">Crazy?</button>
+          <button mat-raised-button color="primary" (click)="navigateToEndpoint(1)">
+            🚀 Easy
+          </button>
+          <button mat-raised-button color="accent" (click)="navigateToEndpoint(2)">
+            🔥 Tough
+          </button>
+          <button mat-raised-button color="warn" (click)="navigateToEndpoint(3)">
+            ⚙️ Tougher
+          </button>
+          <button mat-raised-button color="primary" (click)="navigateToEndpoint(4)">
+            🌍 Crazy?
+          </button>
         </div>
 
         <div *ngIf="isLoading" class="loading-spinner">
@@ -439,6 +447,7 @@
         @for (item of [
           { title: 'Trending Articles', link: 'https://github.com/vishalmysore/easyq/' },
           { title: 'Trending Topics', link: 'https://github.com/vishalmysore/easyq/' },
+          { title: 'Author Insights', link: 'https://github.com/vishalmysore/easyq/' },
         ]; track item.title) {
           <a
             class="pill"
@@ -478,7 +487,12 @@
             </li>
           </ul>
         </div>
-        <button (click)="submitQuiz()">Submit</button>
+        <div class="submit-container">
+        <button mat-raised-button color="primary" class="submit-btn" (click)="submitQuiz()">
+          🚀 Submit Quiz
+        </button>
+
+        </div>
       </div>
     </div>
     </div>
