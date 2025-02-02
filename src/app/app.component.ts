@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { CommonModule, NgClass, NgForOf, NgIf } from '@angular/common';
+import { CommonModule, NgClass, NgForOf, NgIf, NgOptimizedImage } from '@angular/common';
 import { QuizService } from './service/quiz.service';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -16,12 +16,13 @@ import { LinkService } from './service/link.service'
 import { Link } from './models/link.model';
 import { UsergenComponent } from './usergen/usergen.component';
 import { EasyqheaderComponent } from './easyqheader/easyqheader.component';
+import { FooterComponent } from './footer/footer.component';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'], // Note: This should be `styleUrls`, not `styleUrl`
   standalone: true,
-  imports: [RouterOutlet, FormsModule, NgForOf, NgIf, NgClass, UsergenComponent, EasyqheaderComponent] // Add FormsModule here
+  imports: [RouterOutlet, FormsModule, NgForOf, NgIf, NgClass, UsergenComponent, EasyqheaderComponent, NgOptimizedImage, FooterComponent] // Add FormsModule here
 })
 export class AppComponent implements OnInit {
   title = 'EasyQZ';
