@@ -1,0 +1,41 @@
+.top-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-right: 1rem; /* Prevents touching right screen edge */
+}
+
+/* SEXY SIGN-UP BUTTON */
+.signup-btn {
+  padding: 0.5rem 1.2rem;
+  border: none;
+  border-radius: 25px; /* Rounded corners */
+  background: linear-gradient(135deg, #ff6b6b, #ff8e53); /* Gradient for pop effect */
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 10px rgba(255, 107, 107, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Hover Effect */
+.signup-btn:hover {
+  background: linear-gradient(135deg, #ff8e53, #ff6b6b);
+  transform: scale(1.1);
+  box-shadow: 0 6px 15px rgba(255, 107, 107, 0.6);
+}
+
+/* Mobile Optimization */
+@media (max-width: 768px) {
+  .top-right {
+    margin-right: 0; /* Center on smaller screens */
+  }
+
+  .signup-btn {
+    font-size: 0.9rem;
+    padding: 0.4rem 1rem;
+  }
+}

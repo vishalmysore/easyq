@@ -129,6 +129,8 @@
     width: 100%;
     max-width: 700px;
     margin-bottom: 3rem;
+
+
   }
 
   .content h1 {
@@ -304,8 +306,19 @@
     .content {
       flex-direction: column;
       width: max-content;
+      padding-right: 0.5rem;
+      padding-left: 0.5rem;
     }
-
+    .left-side {
+      display: flex;
+      margin-top: 0.1px;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      padding-right: 0.5rem;
+      padding-left: 0.5rem;
+    }
     .divider {
       height: 1px;
       width: 100%;
@@ -315,6 +328,16 @@
     .bottom-side {
       padding-left: 0.5rem; /* Adjust padding for smaller screens */
       padding-right: 0.5rem; /* Adjust padding for smaller screens */
+    }
+    .pill-group {
+      display: flex; /* Use flexbox to arrange items horizontally */
+      flex-direction: row; /* Ensure items are aligned horizontally */
+      flex-wrap: wrap; /* Allow items to wrap to the next line if needed */
+      gap: 1.25rem; /* Adjust spacing between pills */
+      margin-top: 1.75rem;
+      padding-left: 0.5rem; /* Adjust padding for smaller screens */
+      padding-right: 0.5rem; /* Adjust padding for smaller screens */
+
     }
     .header {
       flex-direction: column;
@@ -400,7 +423,6 @@
             </svg>
           </a>
         }
-      </div>
 
       <div class="bottom-side" *ngIf="questions">
         <h3>Quiz Questions:</h3>
@@ -422,7 +444,7 @@
         <button (click)="submitQuiz()">Submit</button>
       </div>
     </div>
-
+    </div>
   </div>
   <!-- Other content of your app -->
 

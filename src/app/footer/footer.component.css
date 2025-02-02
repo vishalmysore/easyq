@@ -1,0 +1,41 @@
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333;  /* Dark background */
+  color: #fff;             /* White text */
+  padding: 10px 20px;
+  position: fixed;         /* Sticks to the bottom */
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 1000;           /* Ensure it's above other elements */
+}
+
+.footer-section {
+  flex: 1;
+  text-align: center;
+}
+
+/* Left section aligned to left */
+.footer-section.left {
+  text-align: left;
+}
+
+/* Right section aligned to right */
+.footer-section.right {
+  text-align: right;
+}
+
+/* Style for the links in the middle section */
+.footer-section.middle a {
+  color: #fff;
+  margin: 0 10px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.footer-section.middle a:hover {
+  text-decoration: underline;
+}
