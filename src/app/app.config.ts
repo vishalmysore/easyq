@@ -5,10 +5,13 @@ import { routes } from './app.routes';
 import { SampleInterceptor } from './interceptors/SampleInterceptor';
 import {  HTTP_INTERCEPTORS } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),  // Keep this as is
-    provideRouter(routes),  // Keep this as is
+    provideRouter(routes),
+   // Keep this as is
     provideHttpClient(withInterceptorsFromDi()),
     {
       provide:HTTP_INTERCEPTORS,
