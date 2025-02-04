@@ -1,8 +1,9 @@
 <footer class="footer">
   <div class="footer-section left">
-    <!-- Left section content -->
-    <p>Contact Us</p>
+    <!-- Clicking "Contact Us" opens the form -->
+    <button mat-button (click)="openContactForm('Support')" >Contact Us</button>
   </div>
+
   <div class="footer-section middle">
     <a href="https://www.linkedin.com/in/vishalrow/" target="_blank" rel="noopener">
       <i class="fab fa-linkedin"></i>
@@ -14,8 +15,16 @@
       <i class="fab fa-medium"></i>
     </a>
   </div>
+
   <div class="footer-section right">
-    <!-- Right section content -->
-    <p>Contribute</p>
+    <!-- Clicking "Contribute" opens the form -->
+    <button mat-button  (click)="openContactForm('Contribute')" >Contribute</button>
   </div>
 </footer>
+
+<!-- Contact Us Modal -->
+<app-contact-us
+  *ngIf="showContactForm"
+  (formSubmitted)="handleFormSubmission($event)"
+  (closeRequested)="closeContactForm()">
+</app-contact-us>

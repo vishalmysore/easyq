@@ -1,0 +1,33 @@
+<div class="trending-container" *ngIf="isVisible">
+  <!-- Close Button -->
+
+
+  <!-- Trending Articles Card -->
+  <mat-card class="trending-card">
+    <mat-card-title style="color: white;">Trending Articles (Last Hour)</mat-card-title>
+    <button mat-icon-button class="close-button" (click)="closeTrendingArticles()">
+      <mat-icon>close</mat-icon>
+    </button>
+    <table mat-table [dataSource]="trendingLinks" class="mat-elevation-z8">
+      <ng-container matColumnDef="url">
+        <th mat-header-cell *matHeaderCellDef> Article </th>
+        <td mat-cell *matCellDef="let link">
+          <a [href]="link.url" target="_blank">{{ link.url }}</a>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="author">
+        <th mat-header-cell *matHeaderCellDef> Author </th>
+        <td mat-cell *matCellDef="let link"> {{ link.author }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="totalAccessCount">
+        <th mat-header-cell *matHeaderCellDef> Views </th>
+        <td mat-cell *matCellDef="let link"> {{ link.totalAccessCount }} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="['url', 'author', 'totalAccessCount']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['url', 'author', 'totalAccessCount'];"></tr>
+    </table>
+  </mat-card>
+</div>

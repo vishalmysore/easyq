@@ -1,0 +1,25 @@
+<div class="contact-us-container">
+  <button class="close-btn" (click)="closeForm()">✖</button>
+
+  <h2>Contact Us</h2>
+
+  <label for="type">Type:</label>
+  <select id="type" [(ngModel)]="selectedType">
+    <option value="Contribute">Contribute</option>
+    <option value="Support">Support</option>
+    <option value="Feature">Feature</option>
+  </select>
+
+  <div *ngIf="selectedType === 'Contribute'">
+    <label for="gitUrl">Git URL:</label>
+    <input id="gitUrl" type="text" [(ngModel)]="gitUrl" placeholder="Enter GitHub URL">
+  </div>
+
+  <label for="email">Email:</label>
+  <input id="email" type="email" [(ngModel)]="email" placeholder="Enter your email">
+
+  <label for="message">Message:</label>
+  <textarea id="message" [(ngModel)]="message" placeholder="Enter your message"></textarea>
+
+  <button (click)="submitForm()">Submit</button>
+</div>

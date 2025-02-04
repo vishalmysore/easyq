@@ -18,13 +18,20 @@ import { UsergenComponent } from './usergen/usergen.component';
 import { EasyqheaderComponent } from './easyqheader/easyqheader.component';
 import { FooterComponent } from './footer/footer.component';
 import { MatButton } from '@angular/material/button';
+import { Score } from './models/score.model';
+import { Observable } from 'rxjs';
+import { UserDetailsComponent } from './user-details/user-details-component';
+import { MatDialog } from '@angular/material/dialog';
+import { TrendingArticlesComponent } from './trending-articles/trending-articles.component';
+import { AuthorInsightsComponent } from './author-insight/author-insight.component';
+import { MatTooltip } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'], // Note: This should be `styleUrls`, not `styleUrl`
   standalone: true,
-  imports: [RouterOutlet, FormsModule, NgForOf, NgIf, NgClass, UsergenComponent, EasyqheaderComponent, NgOptimizedImage, FooterComponent, MatButton]// Add FormsModule here
+  imports: [RouterOutlet, FormsModule, NgForOf, NgIf, NgClass, UsergenComponent, EasyqheaderComponent, NgOptimizedImage, FooterComponent, MatButton, MatTooltip]// Add FormsModule here
 })
 export class AppComponent implements OnInit {
   title = 'EasyQZ';
@@ -32,10 +39,10 @@ export class AppComponent implements OnInit {
   questions: any = null;
   isLoading: boolean = false;
   articleUrl: string | null = null;
-  trendingArticles: Link[] = [];
   quizSubmitted = false;
   scrolled = false;
-  constructor(private http: HttpClient,private route: ActivatedRoute, private router: Router, private quizService: QuizService,private linkService: LinkService) {}
+  private httpClient: any;
+  constructor(private http: HttpClient,private route: ActivatedRoute, private router: Router, private quizService: QuizService,private linkService: LinkService,private dialog: MatDialog) {}
 
   ngOnInit() {
     console.log(environment.apiUrl);
@@ -51,6 +58,35 @@ export class AppComponent implements OnInit {
       }
     });
   }
+  openTrendingArticlesDialog(): void {
+    console.log('openTrendingArticlesDialog');
+    this.dialog.open(TrendingArticlesComponent, {
+      width: '80%', // Adjust the width for your preference
+      maxWidth: '600px', // Set max width for popup
+      height: 'auto', // Auto height or specify
+      data: { username: 'hello' } // Pass data if needed
+    });
+  }
+  openTrendingTopicsDialog(): void {
+    console.log('openUserDetailsDialog');
+    this.dialog.open(TrendingArticlesComponent, {
+      width: '80%', // Adjust the width for your preference
+      maxWidth: '600px', // Set max width for popup
+      height: 'auto', // Auto height or specify
+      data: { username: 'hello' } // Pass data if needed
+    });
+  }
+  openAuthorInisightDialog(): void {
+    console.log('openUserDetailsDialog');
+    this.dialog.open(AuthorInsightsComponent, {
+      width: '80%', // Adjust the width for your preference
+      maxWidth: '600px', // Set max width for popup
+      height: 'auto', // Auto height or specify
+      data: { username: 'hello' } // Pass data if needed
+    });
+  }
+
+
   navigateToEndpoint(difficulty: number) {
     const endpoint = `${environment.apiUrl}getQuestions?prompt=${this.inputValue}&difficulty=${difficulty}`;
     this.quizSubmitted = false;
@@ -84,13 +120,69 @@ export class AppComponent implements OnInit {
     this.selectedAnswers[questionId] = selectedChoice; // Store selected answer
   }
 
-  fetchTrendingArticles() {
-    this.linkService.getTrendingLinks().subscribe(
-      (data) => {
-        this.trendingArticles = data;
+
+  createScoreObject(correctCount: number, skippedCount: number, totalQuestions: number): Score {
+    const userId = 'user-id';  // Replace with actual userId (if available)
+    const quizId = 'quiz-id';  // Replace with actual quizId (if available)
+    const percentage = (correctCount / totalQuestions) * 100;
+    const totalScore = correctCount * 10;  // Assuming each question is worth 10 points
+
+    return new Score(
+      userId,
+      totalScore,
+      totalQuestions,
+      correctCount,
+      totalQuestions - correctCount - skippedCount,
+      skippedCount,
+      totalScore,
+      percentage,
+      quizId,
+      window.location.href,  // Current URL of the page
+      'example-topics',  // Add topics here if needed
+      this.questions
+    );
+  }
+
+  // HTTP method to call the API (assuming you're using HttpClient for HTTP requests)
+  updateResults(score: Score): Observable<any> {
+    const apiUrl = 'https://your-api-url.com/updateResults';  // Replace with your actual API endpoint
+    return this.httpClient.post(apiUrl, score.toResultObject());
+  }
+
+  transformToQuestionArray(quizResults: QuizResult[]): Question[] {
+    return quizResults.map(result => ({
+      questionId: parseInt(result.id, 10),  // Ensure the ID is a number
+      questionText: result.question,
+      answerChoices: result.choices,
+      correctAnswer: result.answer,
+      explanation: result.explanation || ''
+    }));
+  }
+
+  submitResultsToAPI(correctCount: number, evaluatedResults: QuizResult[]) {
+    // Create the Score object to send to the backend
+    const score = new Score(
+      'user123', // Replace with actual user ID
+      correctCount,
+      this.questions.length,
+      correctCount,
+      this.questions.length - correctCount,
+      0, // Skipped questions can be calculated if needed
+      correctCount * 10, // Calculate total score (modify as per logic)
+      (correctCount / this.questions.length) * 100, // Percentage calculation
+      'quiz123', // Replace with actual quiz ID
+      'https://your-quiz-url.com', // Replace with actual URL
+      'Topic1, Topic2', // Replace with actual topics
+      this.transformToQuestionArray(evaluatedResults) // Map QuizResults to Question[] for submission
+    );
+
+    // Now, call the API to submit the results
+    this.quizService.updateResults(score).subscribe(
+      response => {
+        console.log('Quiz results submitted successfully:', response);
       },
-      (error) => {
-        console.error('Error fetching trending articles:', error);
+      error => {
+        console.error('Error submitting quiz:', error);
       }
     );
   }
@@ -125,8 +217,12 @@ export class AppComponent implements OnInit {
     this.quizSubmitted = true;
     this.scrollToResults();
     // Navigate to the results page
-    this.router.navigate(['/quiz-results']);
+    this.router.navigate(['/quiz-results']).then(() => {
+      // After navigating, call the API to submit the quiz results
+      this.submitResultsToAPI(correctCount, evaluatedResults);
+    });
   }
+
   scrollToResults() {
     setTimeout(() => {
       window.scrollTo({

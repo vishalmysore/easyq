@@ -1,0 +1,56 @@
+<div class="user-container" *ngIf="user">
+  <!-- Profile Card -->
+  <mat-card class="user-profile">
+    <mat-card-header>
+      <img mat-card-avatar [src]="user.avatar" alt="User Avatar">
+      <mat-card-title>
+        {{ user.name }}
+        <button *ngIf="!user.isPermanent" mat-button color="primary" (click)="convertToPermanentAccount()">
+          (Create Permanent Account)
+        </button>
+      </mat-card-title>
+      <mat-card-subtitle>{{ user.emailId }}</mat-card-subtitle>
+      <button mat-icon-button class="close-btn" (click)="closeProfile()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-card-header>
+    <mat-card-content>
+      <h3>Expert Topics</h3>
+      <mat-chip *ngFor="let topic of user?.expertTopics" color="primary" selected>
+        {{ topic }}
+      </mat-chip>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Achievements Card -->
+  <mat-card class="achievements-card">
+    <mat-card-title>Achievements</mat-card-title>
+    <mat-chip *ngFor="let achievement of user?.achievements" color="accent">
+      <mat-icon>star</mat-icon> {{ achievement }}
+    </mat-chip>
+  </mat-card>
+
+  <!-- Test Results Table -->
+  <mat-card class="test-results-card">
+    <mat-card-title>Tests Taken</mat-card-title>
+    <table mat-table [dataSource]="testResults" class="mat-elevation-z8">
+      <ng-container matColumnDef="testName">
+        <th mat-header-cell *matHeaderCellDef> Test Name </th>
+        <td mat-cell *matCellDef="let result"> {{ result.testName }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="score">
+        <th mat-header-cell *matHeaderCellDef> Score </th>
+        <td mat-cell *matCellDef="let result"> {{ result.score }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef> Date </th>
+        <td mat-cell *matCellDef="let result"> {{ result.date }} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="['testName', 'score', 'date']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['testName', 'score', 'date'];"></tr>
+    </table>
+  </mat-card>
+</div>

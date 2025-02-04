@@ -1,23 +1,29 @@
-.top-left {
+.top-left-header {
   display: flex;
   gap: 1rem;
   font-size: 0.75rem; /* Smaller font size */
   font-weight: 600;
+  align-items: center; /* Ensures vertical alignment */
 }
 
-.top-left a {
+.custom-mat-button {
+  display: inline-flex; /* Ensures proper flex alignment */
+  align-items: center; /* Centers text */
+  padding: 6px 12px; /* Balanced padding */
   text-decoration: none;
   color: #007bff;
-  padding: 0.2rem 0.5rem; /* Smaller padding for more compact look */
-  border-radius: 15px;
-  background: rgba(0, 123, 255, 0.1);
+  font-size: 0.75rem; /* Sleek, smaller font */
+  font-weight: 600;
+  background: linear-gradient(to right, rgba(0, 123, 255, 0.1), rgba(0, 123, 255, 0.05)); /* Subtle modern gradient */
   transition: all 0.3s ease-in-out;
+  white-space: nowrap; /* Prevents wrapping */
+  cursor: pointer;
 }
 
-.top-left a:hover {
+.custom-mat-button:hover {
   background: #007bff;
   color: white;
   text-decoration: none;
-  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
-  transform: scale(1.05);
+  box-shadow: 0 3px 12px rgba(0, 123, 255, 0.4); /* Slightly more prominent hover effect */
+  transform: scale(1.07); /* Slight hover expansion */
 }

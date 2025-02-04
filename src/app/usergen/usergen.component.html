@@ -1,6 +1,10 @@
 <div class="top-right">
-  <span>Hello {{username}}!</span>
-  <button mat-raised-button color="accent" class="signup-btn">
+  <button  mat-button color="primary" (click)="openUserDetailsDialog()">
+    🙏 Hello {{username}}!
+  </button>
+  <button mat-raised-button color="primary" (click)="signUp()">
     ✍️ Sign Up
   </button>
+
+
 </div>

@@ -12,7 +12,12 @@ export class UserService {
   createUser(username: any) {
     const user: User = {
       userId: username,
-      emailId: null  // Set emailId as null
+      emailId: null,
+      name: username,
+      avatar: "https://i.pravatar.cc/150?img=3",
+      expertTopics: ["AI", "Cybersecurity", "Machine Learning"],
+      achievements: ["Top Scorer", "AI Guru", "Fastest Learner"],
+      isPermanent: false  // Set to true if user already has a permanent account// Set emailId as null
     };
     const endpoint = `${environment.apiUrl}createNewUser`;
     return this.http.post<any>(endpoint, user).subscribe(

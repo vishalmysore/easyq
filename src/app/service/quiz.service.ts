@@ -1,11 +1,16 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { QuizResult } from '../models/quiz-results-model';
+import { Score } from '../models/score.model';
+import { environment } from '../../environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class QuizService {
+
+  private apiUrl = `${environment.apiUrl}updateResults`;
   // Observable for questions
   private questionsSubject = new BehaviorSubject<any[]>([]);
   questions$ = this.questionsSubject.asObservable();
@@ -21,7 +26,7 @@ export class QuizService {
   // Get the count as an Observable
   currentCount$ = this.currentCountSubject.asObservable();
 
-
+  constructor(private http: HttpClient) { }
 
 // Set the count
   setCurrentCount(count: number): void {
@@ -34,7 +39,7 @@ export class QuizService {
   }
 
 
-  constructor() {}
+
 
   // Method to set quiz results
   setQuizResults(results: QuizResult[] | null): void {
@@ -74,5 +79,9 @@ export class QuizService {
   // ✅ Clear user answers (useful for resetting the quiz)
   clearUserAnswers(): void {
     this.userAnswers = {};
+  }
+
+  updateResults(score: Score): Observable<any> {
+    return this.http.post(this.apiUrl, score);
   }
 }

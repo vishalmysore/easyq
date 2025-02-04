@@ -1,0 +1,97 @@
+<div class="author-container" *ngIf="showPage">
+  <!-- Close Window Button -->
+  <button mat-icon-button class="close-btn" (click)="closeWindow()">
+    <mat-icon>close</mat-icon>
+  </button>
+
+  <!-- Profile Section -->
+  <mat-card class="author-profile">
+    <mat-card-header>
+      <img mat-card-avatar [src]="author.avatar" alt="Author Avatar">
+      <mat-card-title>✍️ I am an Author</mat-card-title>
+      <mat-card-subtitle>{{ author.bio }}</mat-card-subtitle>
+    </mat-card-header>
+  </mat-card>
+
+  <!-- Overall Score Section -->
+  <mat-card class="overall-score-card">
+    <mat-card-title>🌟 Overall Author Score</mat-card-title>
+    <div class="score-container">
+      <span class="score-number">{{ overallScore }}%</span>
+      <mat-chip [ngClass]="{
+        'excellent': overallScore >= 85,
+        'good': overallScore >= 70 && overallScore < 85,
+        'needs-improvement': overallScore < 70
+      }">
+        {{ overallScore >= 85 ? '🔥 Excellent' : overallScore >= 70 ? '👍 Good' : '⚠️ Needs Improvement' }}
+      </mat-chip>
+    </div>
+  </mat-card>
+
+  <!-- Articles Table -->
+  <mat-card class="articles-card">
+    <mat-card-title>📚 My Articles</mat-card-title>
+    <table mat-table [dataSource]="articles" class="mat-elevation-z8">
+      <!-- Title Column -->
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef> Title </th>
+        <td mat-cell *matCellDef="let article"> {{ article.title }} </td>
+      </ng-container>
+
+      <!-- Date Column -->
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef> Date </th>
+        <td mat-cell *matCellDef="let article"> {{ article.date }} </td>
+      </ng-container>
+
+      <!-- Source Column -->
+      <ng-container matColumnDef="source">
+        <th mat-header-cell *matHeaderCellDef> Source </th>
+        <td mat-cell *matCellDef="let article">
+          <mat-chip color="primary" selected>{{ article.source }}</mat-chip>
+        </td>
+      </ng-container>
+
+      <!-- Quiz Takers Column -->
+      <ng-container matColumnDef="quizTakers">
+        <th mat-header-cell *matHeaderCellDef> Users Took Quiz </th>
+        <td mat-cell *matCellDef="let article"> {{ article.quizTakers }} </td>
+      </ng-container>
+
+      <!-- Average Score Column -->
+      <ng-container matColumnDef="averageScore">
+        <th mat-header-cell *matHeaderCellDef> Avg Score </th>
+        <td mat-cell *matCellDef="let article"> {{ article.averageScore }}% </td>
+      </ng-container>
+
+      <!-- Readiness Column -->
+      <ng-container matColumnDef="readiness">
+        <th mat-header-cell *matHeaderCellDef> Readiness </th>
+        <td mat-cell *matCellDef="let article">
+          <mat-chip [ngClass]="{
+            'published': article.readiness === 'Published',
+            'needs-improvement': article.readiness === 'Needs Improvement'
+          }">
+            {{ article.readiness }}
+          </mat-chip>
+        </td>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let article">
+          <button mat-icon-button color="primary" (click)="editArticle(article)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteArticle(article)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="['title', 'date', 'source', 'quizTakers', 'averageScore', 'readiness', 'actions']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['title', 'date', 'source', 'quizTakers', 'averageScore', 'readiness', 'actions'];"></tr>
+    </table>
+  </mat-card>
+</div>

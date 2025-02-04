@@ -4,7 +4,14 @@
   gap: 1rem;
   margin-right: 1rem; /* Prevents touching right screen edge */
 }
-
+.top-right span {
+  pointer-events: auto; /* Ensure clicks work */
+  cursor: pointer; /* Show hand cursor */
+}
+button, span {
+  pointer-events: auto !important;
+  cursor: pointer;
+}
 /* SEXY SIGN-UP BUTTON */
 .signup-btn {
   padding: 0.5rem 1.2rem;
@@ -22,11 +29,6 @@
 }
 
 /* Hover Effect */
-.signup-btn:hover {
-  background: linear-gradient(135deg, #ff8e53, #ff6b6b);
-  transform: scale(1.1);
-  box-shadow: 0 6px 15px rgba(255, 107, 107, 0.6);
-}
 
 /* Mobile Optimization */
 @media (max-width: 768px) {
