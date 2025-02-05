@@ -85,29 +85,9 @@
     vertical-align: middle; /* Align it vertically with the text */
     margin-top: 20px;
   }
-  .loading-spinner {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 18px;
-    color: #3498db;
-  }
 
-  .loading-spinner p {
-    text-align: center;
-    margin-top: 10px;
-  }
 
-  .loading-spinner::after {
-    content: '';
-    width: 50px;
-    height: 50px;
-    border: 5px solid #f3f3f3;
-    border-top: 5px solid #3498db;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-  }
+
 
   @keyframes spin {
     0% { transform: rotate(0deg); }
@@ -407,10 +387,26 @@
       <img ngSrc="easylogo2.png" class="angular-logo" alt="Angular Logo" priority width="187" height="245">
       <p>Enhance Your Knowledge with AI-Driven Insights</p>
       <div class="left-side">
+        <div class="category-container">
+          <div class="category-card" (click)="selectCategory('kids')">
+            <span class="emoji">🧒Kids</span>
+          </div>
+          <div class="category-card" (click)="selectCategory('job_seeker')">
+            <span class="emoji">💼Jobs</span>
+          </div>
+          <div class="category-card" (click)="selectCategory('learner')">
+            <span class="emoji">📖Learner</span>
+          </div>
+          <div class="category-card" (click)="selectCategory('fun')">
+            <span class="emoji">🎉Fun</span>
+          </div>
+        </div>
+
+        <p>{{ getFunnyMessage() }}</p>
         <input
           type="text"
           [(ngModel)]="inputValue"
-          placeholder="Topic or Link: Java Interview, World Economy, Cricket"
+          [placeholder]="getInputPlaceHolder()"
           matTooltip="You can provide any article link from medium, linkedin etc or enter the topic or keywords"
           style="width: 400px;height: 100px; padding: 8px; font-size: 16px;" />
 
@@ -429,8 +425,9 @@
           </button>
         </div>
 
-        <div *ngIf="isLoading" class="loading-spinner">
-          <p>Loading...</p> <!-- You can replace this with a spinner or any other indicator -->
+        <div *ngIf="isLoading" class="loading-container">
+          <mat-spinner diameter="50"></mat-spinner>
+          <p class="loading-message">{{ loadingMessages[currentMessageIndex] }}</p>
         </div>
       </div>
     </div>

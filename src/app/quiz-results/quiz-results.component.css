@@ -72,3 +72,49 @@
   background: #0056b3;
   text-decoration: none;
 }
+@media (max-width: 768px) {
+  .quiz-results-container {
+    padding-left: 15px; /* Adjust padding for tablets */
+    padding-right: 15px;
+  }
+
+  .quiz-results {
+    padding: 15px; /* Adjust padding on smaller screens */
+  }
+
+  .quiz-results h2 {
+    font-size: 20px; /* Reduce font size of the title */
+  }
+
+  .tutorial-link p {
+    font-size: 14px; /* Make the tutorial description smaller */
+  }
+
+  .tutorial-link a {
+    padding: 8px 16px; /* Adjust button padding for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .quiz-results-container {
+    padding-left: 10px; /* Added padding on smaller screens to prevent cut-off */
+    padding-right: 10px;
+  }
+
+  .quiz-results {
+    padding: 10px; /* Adjust padding further on very small screens */
+  }
+
+  .quiz-results h2 {
+    font-size: 18px; /* Further reduce font size */
+  }
+
+  .tutorial-link p {
+    font-size: 12px; /* Make the tutorial description smaller */
+  }
+
+  .tutorial-link a {
+    padding: 6px 12px; /* Adjust button padding for small screens */
+    font-size: 14px; /* Make button text smaller */
+  }
+}

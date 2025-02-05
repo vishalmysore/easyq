@@ -15,6 +15,9 @@ export class QuizService {
   private questionsSubject = new BehaviorSubject<any[]>([]);
   questions$ = this.questionsSubject.asObservable();
 
+  private resetQuestionsSubject = new BehaviorSubject<boolean>(false);
+  resetQuestions$ = this.resetQuestionsSubject.asObservable();
+
   // Observable for quiz results
   private quizResultsSubject = new BehaviorSubject<QuizResult[] | null>(null);
   quizResults$ = this.quizResultsSubject.asObservable();
@@ -27,6 +30,24 @@ export class QuizService {
   currentCount$ = this.currentCountSubject.asObservable();
 
   constructor(private http: HttpClient) { }
+
+  // ✅ Set reset flag
+  setResetQuestions(flag: boolean): void {
+    this.resetQuestionsSubject.next(flag);
+  }
+
+  // ✅ Get reset flag
+  getResetQuestions(): boolean {
+    return this.resetQuestionsSubject.value;
+  }
+
+  // ✅ Reset the questions
+  resetQuestions(): void {
+    this.setQuestions([]);
+    this.clearUserAnswers();
+    this.setQuizResults(null);
+    this.setResetQuestions(true);
+  }
 
 // Set the count
   setCurrentCount(count: number): void {

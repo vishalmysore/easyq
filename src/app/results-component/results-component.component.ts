@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { MatAnchor, MatButton } from '@angular/material/button';
+import {QuizService } from '../service/quiz.service';
 
 @Component({
   selector: 'app-results-component',
@@ -13,6 +14,7 @@ import { MatAnchor, MatButton } from '@angular/material/button';
   styleUrl: './results-component.component.css'
 })
 export class ResultsComponent {
+  constructor(private router: Router, private QuizService: QuizService) { }
   shareResults() {
     const shareText = "I just completed my quiz on EasyQz! Check out my results.";
     const shareUrl = window.location.href;
@@ -33,4 +35,8 @@ export class ResultsComponent {
     window.print(); // Opens the browser print dialog
   }
 
+  goToMainPage() {
+    this.QuizService.resetQuestions(); // Reset questions in service
+    this.router.navigate(['/']); // Adjust the route if your main page has a different path
+  }
 }

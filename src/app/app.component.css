@@ -1,8 +1,48 @@
-.submit-container {
+.category-container {
   display: flex;
+  gap: 10px;
   justify-content: center;
-  margin-bottom: 50px; /* Adds space above the footer */
+  margin-top: 20px;
 }
+
+.category-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 70px;  /* Adjusted width */
+  height: 50px;  /* Adjusted height */
+  border-radius: 10px;
+  background-color: #f4f4f4;
+  cursor: pointer;
+  transition: 0.3s;
+  text-align: center;
+  font-weight: bold;
+}
+
+.category-card:hover {
+  background-color: #e0e0e0;
+}
+
+.emoji {
+  font-size: 1.5rem;  /* Emoji size */
+  margin: 0;  /* No margin */
+  padding: 0;  /* No padding */
+  line-height: 1;  /* Adjust line height to bring emoji and text closer */
+}
+
+.category-card span {
+  font-size: 0.75rem;  /* Text size */
+  margin: 0;  /* No margin */
+  padding: 0;  /* No padding */
+  line-height: 1;  /* Reduce extra space between emoji and text */
+}
+
+
+
+
+
+
 .scroll-prompt {
   position: fixed;
   bottom: 20px;
@@ -16,6 +56,21 @@
   z-index: 9999;
   font-size: 16px;
   transition: opacity 0.5s ease-in-out;  /* Smooth fade-out transition */
+}
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 100%;
+  text-align: center;
+}
+
+.loading-message {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #007bff;
 }
 
 .scroll-prompt.hide {

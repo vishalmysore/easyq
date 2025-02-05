@@ -25,24 +25,46 @@ import { MatDialog } from '@angular/material/dialog';
 import { TrendingArticlesComponent } from './trending-articles/trending-articles.component';
 import { AuthorInsightsComponent } from './author-insight/author-insight.component';
 import { MatTooltip } from '@angular/material/tooltip';
+import {MatProgressSpinner} from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'], // Note: This should be `styleUrls`, not `styleUrl`
   standalone: true,
-  imports: [RouterOutlet, FormsModule, NgForOf, NgIf, NgClass, UsergenComponent, EasyqheaderComponent, NgOptimizedImage, FooterComponent, MatButton, MatTooltip]// Add FormsModule here
+  imports: [MatProgressSpinner,RouterOutlet, FormsModule, NgForOf, NgIf, NgClass, UsergenComponent, EasyqheaderComponent, NgOptimizedImage, FooterComponent, MatButton, MatTooltip]// Add FormsModule here
 })
 export class AppComponent implements OnInit {
   title = 'EasyQZ';
   inputValue: string = '';
   questions: any = null;
   isLoading: boolean = false;
+  loadingMessages = [
+    "Questions are being prepared...",
+    "Please wait...",
+    "We are almost there...",
+    "Get ready!",
+    "Let AI Do the Magic",
+    "Its Human Vs AI",
+    "Are you Ready?",
+    "1",
+    "2",
+    "3"
+  ];
+  currentMessageIndex = 0;
+  intervalId: any;
   articleUrl: string | null = null;
   quizSubmitted = false;
   scrolled = false;
   private httpClient: any;
+  private prompt: string ='';
   constructor(private http: HttpClient,private route: ActivatedRoute, private router: Router, private quizService: QuizService,private linkService: LinkService,private dialog: MatDialog) {}
+
+  startMessageRotation() {
+    this.intervalId = setInterval(() => {
+      this.currentMessageIndex = (this.currentMessageIndex + 1) % this.loadingMessages.length;
+    }, 2000); // Change message every 2 seconds
+  }
 
   ngOnInit() {
     console.log(environment.apiUrl);
@@ -57,6 +79,13 @@ export class AppComponent implements OnInit {
        this.navigateToEndpoint(1);
       }
     });
+    this.quizService.resetQuestions$ // Listen for reset changes
+      .subscribe((reset) => {
+        if (reset) {
+          this.questions = null; // Clear questions
+          this.quizService.setResetQuestions(false); // Reset the flag
+        }
+      });
   }
   openTrendingArticlesDialog(): void {
     console.log('openTrendingArticlesDialog');
@@ -88,7 +117,9 @@ export class AppComponent implements OnInit {
 
 
   navigateToEndpoint(difficulty: number) {
-    const endpoint = `${environment.apiUrl}getQuestions?prompt=${this.inputValue}&difficulty=${difficulty}`;
+    this.startMessageRotation()
+    const prompt = this.inputValue.trim() || this.prompt;
+    const endpoint = `${environment.apiUrl}getQuestions?prompt=${this.prompt}&difficulty=${difficulty}`;
     this.quizSubmitted = false;
     this.questions = null;
     this.scrolled = false;
@@ -111,6 +142,9 @@ export class AppComponent implements OnInit {
       (error) => {
         console.error('Error fetching quiz questions:', error);
         this.isLoading = false;
+        if (this.intervalId) {
+          clearInterval(this.intervalId);
+        }
       }
     );
   }
@@ -144,10 +178,7 @@ export class AppComponent implements OnInit {
   }
 
   // HTTP method to call the API (assuming you're using HttpClient for HTTP requests)
-  updateResults(score: Score): Observable<any> {
-    const apiUrl = 'https://your-api-url.com/updateResults';  // Replace with your actual API endpoint
-    return this.httpClient.post(apiUrl, score.toResultObject());
-  }
+
 
   transformToQuestionArray(quizResults: QuizResult[]): Question[] {
     return quizResults.map(result => ({
@@ -233,10 +264,48 @@ export class AppComponent implements OnInit {
   }
 
   // Listen for scroll events
+  selectedCategory: string | undefined;
   @HostListener('window:scroll', ['$event'])
   onWindowScroll() {
     if (window.scrollY > 50) {
       this.scrolled = true; // Hide the scroll prompt when scrolling
+    }
+  }
+  selectCategory(selectedCategory: string) {
+    this.selectedCategory=selectedCategory;
+  }
+  getFunnyMessage(): string {
+    switch (this.selectedCategory) {
+      case 'kids':
+        return "🎉 Ready for some fun? How about answering a Harry Potter quiz and showing off your wizard skills! 🧙‍♂️";
+      case 'job_seeker':
+        return "💼 Time to land that dream job! How about prepping with some Angular and Java interview questions? 💻";
+      case 'learner':
+        return "📚 Knowledge is power! Ever thought about diving into Agentic AI? Time to level up! 🤖";
+      case 'fun':
+        return "🎊 Let the good times roll! Fancy some Bollywood trivia to spice up your day? 🍿";
+      default:
+        return "";
+    }
+  }
+
+  getInputPlaceHolder(): string {
+    switch (this.selectedCategory) {
+      case 'kids':
+        this.prompt = "How to Train a Dragon Book";
+        return this.prompt; // return this.prompt instead of 'prompt'
+      case 'job_seeker':
+        this.prompt = "Java and Agentic AI";
+        return this.prompt;
+      case 'learner':
+        this.prompt = "Blockchain Basics";
+        return this.prompt;
+      case 'fun':
+        this.prompt = "Bollywood";
+        return this.prompt;
+      default:
+        this.prompt = "Topic or Link: Java Interview, World Economy, Cricket...";
+        return this.prompt;
     }
   }
 }
