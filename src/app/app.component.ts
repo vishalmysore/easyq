@@ -118,8 +118,9 @@ export class AppComponent implements OnInit {
 
   navigateToEndpoint(difficulty: number) {
     this.startMessageRotation()
-    const prompt = this.inputValue.trim() || this.prompt;
-    const endpoint = `${environment.apiUrl}getQuestions?prompt=${this.prompt}&difficulty=${difficulty}`;
+    console.log(this.inputValue)
+    const promptToSend = this.inputValue.trim() || this.prompt;
+    const endpoint = `${environment.apiUrl}getQuestions?prompt=${promptToSend}&difficulty=${difficulty}`;
     this.quizSubmitted = false;
     this.questions = null;
     this.scrolled = false;
