@@ -368,7 +368,7 @@
 
     }
     .header {
-      flex-direction: column;
+      flex-direction: row;
       align-items: center;
       gap: 0.5rem;
     }
@@ -397,6 +397,9 @@
       <p>Enhance Your Knowledge with AI-Driven Insights</p>
       <div class="left-side">
         <div class="category-container">
+          <div class="category-card" (click)="openStoryPopup()">
+            <span class="emoji">📜Story</span>
+          </div>
           <div class="category-card" (click)="selectCategory('kids')">
             <span class="emoji">🧒Kids</span>
           </div>
@@ -410,7 +413,10 @@
             <span class="emoji">🎉Fun</span>
           </div>
         </div>
-
+        <div *ngIf="isLoading" class="loading-container">
+          <mat-spinner diameter="50"></mat-spinner>
+          <p class="loading-message">{{ loadingMessages[currentMessageIndex] }}</p>
+        </div>
         <p>{{ getFunnyMessage() }}</p>
         <input
           type="text"
@@ -434,10 +440,7 @@
           </button>
         </div>
 
-        <div *ngIf="isLoading" class="loading-container">
-          <mat-spinner diameter="50"></mat-spinner>
-          <p class="loading-message">{{ loadingMessages[currentMessageIndex] }}</p>
-        </div>
+
       </div>
     </div>
 

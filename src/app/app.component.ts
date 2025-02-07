@@ -26,6 +26,9 @@ import { TrendingArticlesComponent } from './trending-articles/trending-articles
 import { AuthorInsightsComponent } from './author-insight/author-insight.component';
 import { MatTooltip } from '@angular/material/tooltip';
 import {MatProgressSpinner} from '@angular/material/progress-spinner';
+import { StoryPopupComponent } from './story-popup/story-popup.component';
+import { StoryService } from './story.service';
+import { Story } from './models/story.model';
 
 @Component({
   selector: 'app-root',
@@ -35,6 +38,7 @@ import {MatProgressSpinner} from '@angular/material/progress-spinner';
   imports: [MatProgressSpinner,RouterOutlet, FormsModule, NgForOf, NgIf, NgClass, UsergenComponent, EasyqheaderComponent, NgOptimizedImage, FooterComponent, MatButton, MatTooltip]// Add FormsModule here
 })
 export class AppComponent implements OnInit {
+  story: Story | null = null;
   title = 'EasyQZ';
   inputValue: string = '';
   questions: any = null;
@@ -58,7 +62,7 @@ export class AppComponent implements OnInit {
   scrolled = false;
   private httpClient: any;
   private prompt: string ='';
-  constructor(private http: HttpClient,private route: ActivatedRoute, private router: Router, private quizService: QuizService,private linkService: LinkService,private dialog: MatDialog) {}
+  constructor(private storyService: StoryService,private http: HttpClient,private route: ActivatedRoute, private router: Router, private quizService: QuizService,private linkService: LinkService,private dialog: MatDialog) {}
 
   startMessageRotation() {
     this.intervalId = setInterval(() => {
@@ -86,6 +90,11 @@ export class AppComponent implements OnInit {
           this.quizService.setResetQuestions(false); // Reset the flag
         }
       });
+    this.storyService.story$.subscribe((story) => {
+      this.story = story;
+      console.log('Stored storyId:', this.story?.storyId);
+    });
+
   }
   openTrendingArticlesDialog(): void {
     console.log('openTrendingArticlesDialog');
@@ -115,8 +124,48 @@ export class AppComponent implements OnInit {
     });
   }
 
+  openStoryPopup() {
+    this.isLoading = true;
+    this.startMessageRotation();
+
+    const storyTypes = [
+      'horror', 'fantasy', 'mystery', 'sci-fi', 'adventure',
+      'romance', 'thriller', 'historical fiction', 'comedy',
+      'drama', 'dystopian', 'mythology', 'supernatural',
+      'crime', 'detective', 'folklore','bollywood','indiana jones'
+    ]; // More story types added
+
+    const randomStoryType = storyTypes[Math.floor(Math.random() * storyTypes.length)]; // Pick a random type
+
+    const user = JSON.parse(<string>localStorage.getItem('user'));
+    const userId = user ? user.userId : null;
+
+    // Fetch the story and open the popup only after fetching
+    this.storyService.fetchStory(userId, randomStoryType);
+
+    // Subscribe to the observable and open dialog when story is available
+    this.storyService.story$.subscribe((story) => {
+      if (story) {
+        this.dialog.open(StoryPopupComponent, {
+          maxWidth: '90vw', // Max width to 90% of viewport width
+          maxHeight: '90vh', // Max height to 90% of viewport height
+          width: 'auto', // Allow resizing
+          height: 'auto',
+          panelClass: 'custom-dialog-container' // Custom class to control styling
+        });
+        this.questions = story?.questions;
+        this.quizSubmitted = false;
+        this.scrolled = false;
+        // Reset previous results
+        this.quizService.setQuizResults(null);
+        this.isLoading = false; // Stop loading indicator
+      }
+    });
+  }
+
 
   navigateToEndpoint(difficulty: number) {
+    this.isLoading = true;
     this.startMessageRotation()
     console.log(this.inputValue)
     const promptToSend = this.inputValue.trim() || this.prompt;
@@ -124,9 +173,10 @@ export class AppComponent implements OnInit {
     this.quizSubmitted = false;
     this.questions = null;
     this.scrolled = false;
+
     // Reset previous results
     this.quizService.setQuizResults(null);
-    this.isLoading = true;
+
     // Fetch the questions from the API
     this.http.get<any[]>(endpoint).subscribe(
       (data) => {

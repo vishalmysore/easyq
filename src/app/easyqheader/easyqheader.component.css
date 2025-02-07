@@ -27,3 +27,21 @@
   box-shadow: 0 3px 12px rgba(0, 123, 255, 0.4); /* Slightly more prominent hover effect */
   transform: scale(1.07); /* Slight hover expansion */
 }
+@media (max-width: 480px) { /* Adjustments for small screens */
+  .top-left-header {
+    gap: 0.3rem; /* Reduce spacing */
+    font-size: 0.2rem; /* Slightly smaller text */
+  }
+
+  .custom-mat-button {
+    padding: 2px 4px; /* Reduce padding */
+    font-size: 0.65rem; /* Smaller font for compact UI */
+    transform: none; /* Prevent excessive scaling on hover */
+  }
+
+  .custom-mat-button:hover {
+    transform: scale(1.03); /* Subtle hover effect */
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+  }
+}
+

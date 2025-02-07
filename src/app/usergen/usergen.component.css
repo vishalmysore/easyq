@@ -33,11 +33,29 @@ button, span {
 /* Mobile Optimization */
 @media (max-width: 768px) {
   .top-right {
+    justify-content: center;
+    flex-wrap: nowrap;
+
+    width: 100%;
+    gap: 0.5rem;
+    font-size: 0.2rem;
+    overflow: hidden;
     margin-right: 0; /* Center on smaller screens */
+  }
+  .custom-mat-button {
+    padding: 2px 4px;
+    font-size: 0.2rem;
+    transform: none;
+  }
+  .top-right button {
+    font-size: 0.5rem; /* Slightly smaller text */
+    padding: 5px 9px; /* Reduce padding */
   }
 
   .signup-btn {
-    font-size: 0.9rem;
+    font-size: 0.2rem;
     padding: 0.4rem 1rem;
+    min-width: auto;
+    margin-right: 2rem;
   }
 }

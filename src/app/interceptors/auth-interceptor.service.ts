@@ -36,7 +36,7 @@ export class AuthInterceptor implements HttpInterceptor {
       });
       return next.handle(clonedRequest).pipe(
         catchError((error: HttpErrorResponse) => {
-          if (error.status === 401) { // Token expired or unauthorized
+          if (error.status === 500) { // Token expired or unauthorized
             console.warn('JWT expired. Redirecting to login...');
             // this.authService.logout(); // Clear session
             sessionStorage.removeItem('jwtToken');
