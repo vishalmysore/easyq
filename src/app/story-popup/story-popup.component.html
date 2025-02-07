@@ -1,0 +1,16 @@
+<div class="story-popup" cdkDrag>
+  <div class="timer">
+    ⏳ You have <span>{{ timeLeft }}</span> seconds to read this story.
+  </div>
+
+  <div class="story-container">
+    <div class="story-text">
+      <h2 class="story-title">{{ story?.title }}</h2>
+      <div class="story-content">
+        <p>{{ story?.storyText }}</p>
+      </div>
+    </div>
+  </div>
+
+  <button mat-raised-button color="warn" (click)="closePopup()">❌ Close</button>
+</div>
