@@ -29,13 +29,17 @@ import {MatProgressSpinner} from '@angular/material/progress-spinner';
 import { StoryPopupComponent } from './story-popup/story-popup.component';
 import { StoryService } from './story.service';
 import { Story } from './models/story.model';
+import { User } from './models/user.model';
+import { Quiz } from './models/quiz.model';
+import { WebSocketService } from './chat/websocket.service';
+import { ChatComponent } from './chat/chat.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'], // Note: This should be `styleUrls`, not `styleUrl`
   standalone: true,
-  imports: [MatProgressSpinner,RouterOutlet, FormsModule, NgForOf, NgIf, NgClass, UsergenComponent, EasyqheaderComponent, NgOptimizedImage, FooterComponent, MatButton, MatTooltip]// Add FormsModule here
+  imports: [MatProgressSpinner, RouterOutlet, FormsModule, NgForOf, NgIf, NgClass, UsergenComponent, EasyqheaderComponent, NgOptimizedImage, FooterComponent, MatButton, MatTooltip, ChatComponent]// Add FormsModule here
 })
 export class AppComponent implements OnInit {
   story: Story | null = null;
@@ -43,6 +47,7 @@ export class AppComponent implements OnInit {
   inputValue: string = '';
   questions: any = null;
   isLoading: boolean = false;
+  user: User | null = null;
   loadingMessages = [
     "Questions are being prepared...",
     "Please wait...",
@@ -60,9 +65,12 @@ export class AppComponent implements OnInit {
   articleUrl: string | null = null;
   quizSubmitted = false;
   scrolled = false;
+  private socket: WebSocket | undefined;
   private httpClient: any;
   private prompt: string ='';
-  constructor(private storyService: StoryService,private http: HttpClient,private route: ActivatedRoute, private router: Router, private quizService: QuizService,private linkService: LinkService,private dialog: MatDialog) {}
+  private quizId: string | undefined;
+  private linkId: string | undefined;
+  constructor(private webSocketService: WebSocketService,private storyService: StoryService,private http: HttpClient,private route: ActivatedRoute, private router: Router, private quizService: QuizService,private linkService: LinkService,private dialog: MatDialog) {}
 
   startMessageRotation() {
     this.intervalId = setInterval(() => {
@@ -71,6 +79,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+
     console.log(environment.apiUrl);
     this.route.queryParams.subscribe(params => {
       this.articleUrl = params['url'] || document.referrer || null;
@@ -94,7 +103,9 @@ export class AppComponent implements OnInit {
       this.story = story;
       console.log('Stored storyId:', this.story?.storyId);
     });
-
+    this.user = JSON.parse(<string>localStorage.getItem('user'));
+    console.log("getting user");
+    console.log(this.user);
   }
   openTrendingArticlesDialog(): void {
     console.log('openTrendingArticlesDialog');
@@ -126,6 +137,7 @@ export class AppComponent implements OnInit {
 
   openStoryPopup() {
     this.isLoading = true;
+    this.scrolled = false;
     this.startMessageRotation();
 
     const storyTypes = [
@@ -146,7 +158,7 @@ export class AppComponent implements OnInit {
     // Subscribe to the observable and open dialog when story is available
     this.storyService.story$.subscribe((story) => {
       if (story) {
-        this.dialog.open(StoryPopupComponent, {
+        const dialogRef = this.dialog.open(StoryPopupComponent, {
           maxWidth: '90vw', // Max width to 90% of viewport width
           maxHeight: '90vh', // Max height to 90% of viewport height
           width: 'auto', // Allow resizing
@@ -159,35 +171,55 @@ export class AppComponent implements OnInit {
         // Reset previous results
         this.quizService.setQuizResults(null);
         this.isLoading = false; // Stop loading indicator
+        dialogRef.afterClosed().subscribe(() => {
+          this.quizId=story.storyId;
+          this.scrollToQuestions();
+        });
       }
     });
+
   }
 
 
   navigateToEndpoint(difficulty: number) {
+
+
+
+
+
     this.isLoading = true;
-    this.startMessageRotation()
-    console.log(this.inputValue)
+    this.startMessageRotation();
+    console.log(this.inputValue);
+
     const promptToSend = this.inputValue.trim() || this.prompt;
+   // this.webSocketService.sendMessage('ws/chat', this.user?.userId +"is searchign for "+promptToSend);
     const endpoint = `${environment.apiUrl}getQuestions?prompt=${promptToSend}&difficulty=${difficulty}`;
     this.quizSubmitted = false;
     this.questions = null;
     this.scrolled = false;
-
+    this.linkId= promptToSend;
     // Reset previous results
     this.quizService.setQuizResults(null);
 
-    // Fetch the questions from the API
-    this.http.get<any[]>(endpoint).subscribe(
+    // Fetch the quiz from the API
+    this.http.get<Quiz>(endpoint).subscribe(
       (data) => {
-        this.questions = data.map(item => ({
-          questionId: item.questionId,           // Mapping 'id' to 'questionId'
-          questionText: item.questionText,       // Mapping 'text' to 'questionText'
-          answerChoices: item.answerChoices,   // Mapping 'choices' to 'answerChoices'
-          correctAnswer: item.correctAnswer     // Mapping 'answer' to 'correctAnswer'
-        }));
+        if (data && data.quizId && data.questions) {
+          // Set quizId and map the questions
+          this.quizId = data.quizId;
+          this.questions = data.questions.map(item => ({
+            questionId: item.questionId,           // Mapping 'id' to 'questionId'
+            questionText: item.questionText,       // Mapping 'text' to 'questionText'
+            answerChoices: item.answerChoices,     // Mapping 'choices' to 'answerChoices'
+            correctAnswer: item.correctAnswer      // Mapping 'answer' to 'correctAnswer'
+          }));
 
-        console.log('Fetched Questions:', this.questions); // Debugging
+          console.log('Fetched Quiz:', this.quizId);
+          console.log('Fetched Questions:', this.questions); // Debugging
+        } else {
+          console.error('Invalid response data:', data);
+        }
+
         this.isLoading = false;
       },
       (error) => {
@@ -206,27 +238,6 @@ export class AppComponent implements OnInit {
   }
 
 
-  createScoreObject(correctCount: number, skippedCount: number, totalQuestions: number): Score {
-    const userId = 'user-id';  // Replace with actual userId (if available)
-    const quizId = 'quiz-id';  // Replace with actual quizId (if available)
-    const percentage = (correctCount / totalQuestions) * 100;
-    const totalScore = correctCount * 10;  // Assuming each question is worth 10 points
-
-    return new Score(
-      userId,
-      totalScore,
-      totalQuestions,
-      correctCount,
-      totalQuestions - correctCount - skippedCount,
-      skippedCount,
-      totalScore,
-      percentage,
-      quizId,
-      window.location.href,  // Current URL of the page
-      'example-topics',  // Add topics here if needed
-      this.questions
-    );
-  }
 
   // HTTP method to call the API (assuming you're using HttpClient for HTTP requests)
 
@@ -244,7 +255,7 @@ export class AppComponent implements OnInit {
   submitResultsToAPI(correctCount: number, evaluatedResults: QuizResult[]) {
     // Create the Score object to send to the backend
     const score = new Score(
-      'user123', // Replace with actual user ID
+      this.user?.userId, // Replace with actual user ID
       correctCount,
       this.questions.length,
       correctCount,
@@ -252,9 +263,9 @@ export class AppComponent implements OnInit {
       0, // Skipped questions can be calculated if needed
       correctCount * 10, // Calculate total score (modify as per logic)
       (correctCount / this.questions.length) * 100, // Percentage calculation
-      'quiz123', // Replace with actual quiz ID
-      'https://your-quiz-url.com', // Replace with actual URL
-      'Topic1, Topic2', // Replace with actual topics
+      this.quizId, // Replace with actual quiz ID
+      this.linkId, // Replace with actual URL
+      this.linkId, // Replace with actual topics
       this.transformToQuestionArray(evaluatedResults) // Map QuizResults to Question[] for submission
     );
 
@@ -313,7 +324,14 @@ export class AppComponent implements OnInit {
       });
     }, 500); // Delay to allow the message to show before scrolling
   }
-
+  scrollToQuestions() {
+    setTimeout(() => {
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: 'smooth'
+      });
+    }, 50); // Delay to allow the message to show before scrolling
+  }
   // Listen for scroll events
   selectedCategory: string | undefined;
   @HostListener('window:scroll', ['$event'])

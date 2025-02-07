@@ -2,7 +2,7 @@ import { QuizResult } from './quiz-results-model';
 import { Question } from './question.model';
 
 export class Score {
-  userId: string;
+  userId: string | undefined;
   score: number;
   totalQuestions: number;
   correctAnswers: number;
@@ -10,13 +10,13 @@ export class Score {
   skippedQuestions: number;
   totalScore: number;
   percentage: number;
-  quizId: string;
-  url: string;
-  topics: string;
+  quizId: string | undefined;
+  url: string | undefined;
+  topics: string | undefined;
   questions: Question[];
 
   constructor(
-    userId: string,
+    userId: string | undefined,
     score: number,
     totalQuestions: number,
     correctAnswers: number,
@@ -24,9 +24,9 @@ export class Score {
     skippedQuestions: number,
     totalScore: number,
     percentage: number,
-    quizId: string,
-    url: string,
-    topics: string,
+    quizId: string | undefined,
+    url: string | undefined,
+    topics: string | undefined,
     questions: Question[]
   ) {
     this.userId = userId;

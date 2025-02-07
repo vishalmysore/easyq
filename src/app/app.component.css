@@ -4,7 +4,14 @@
   justify-content: center;
   margin-top: 20px;
 }
-
+.chat-container {
+  flex: 1; /* Smaller width for chat */
+  max-width: 350px; /* Set a max width for the chat panel */
+  border-left: 2px solid #ddd; /* Add a separator */
+  padding: 10px;
+  height: 100vh;
+  overflow-y: auto; /* Enables scrolling if messages overflow */
+}
 .category-card {
   display: flex;
   flex-direction: column;
