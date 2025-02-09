@@ -1,0 +1,15 @@
+<div class="score-container">
+  <h2>Overall Score</h2>
+
+  <!-- Display score if available -->
+  <div *ngIf="overallScore !== null; else loadingOrError">
+    <p>Your overall score: {{ overallScore }}</p>
+  </div>
+
+  <!-- Show loading message or error -->
+  <ng-template #loadingOrError>
+    <p *ngIf="errorMessage; else loading">Error: {{ errorMessage }}</p>
+    <ng-template #loading>Loading...</ng-template>
+  </ng-template>
+</div>
+

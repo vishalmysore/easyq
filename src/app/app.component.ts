@@ -125,7 +125,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.webSocketService.connect('ws/chat');
     console.log(environment.apiUrl);
     this.route.queryParams.subscribe(params => {
       this.articleUrl = params['url'] || document.referrer || null;
@@ -242,7 +242,8 @@ export class AppComponent implements OnInit {
     console.log(this.inputValue);
 
     const promptToSend = this.inputValue.trim() || this.prompt;
-   // this.webSocketService.sendMessage('ws/chat', this.user?.userId +"is searchign for "+promptToSend);
+
+    this.webSocketService.sendMessage('ws/chat', this.user?.userId +"is searchign for "+promptToSend);
     const endpoint = `${environment.apiUrl}getQuestions?prompt=${promptToSend}&difficulty=${difficulty}`;
     this.quizSubmitted = false;
     this.questions = null;

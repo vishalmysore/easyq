@@ -12,11 +12,15 @@ button, span {
   pointer-events: auto !important;
   cursor: pointer;
 }
+.score-wrapper {
+  width: 150px; /* Set a custom width to make the score smaller */
+  margin: 0 auto; /* Center the score */
+}
 /* SEXY SIGN-UP BUTTON */
 .signup-btn {
   padding: 0.5rem 1.2rem;
   border: none;
-  border-radius: 25px; /* Rounded corners */
+  border-radius: 15px; /* Rounded corners */
   background: linear-gradient(135deg, #ff6b6b, #ff8e53); /* Gradient for pop effect */
   color: white;
   font-size: 1rem;
@@ -25,7 +29,7 @@ button, span {
   transition: all 0.3s ease-in-out;
   box-shadow: 0 4px 10px rgba(255, 107, 107, 0.4);
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
 }
 
 /* Hover Effect */

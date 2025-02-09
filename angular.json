@@ -55,6 +55,7 @@
                 }
               ],
               "outputHashing": "all"
+
             },
             "development": {
               "optimization": false,

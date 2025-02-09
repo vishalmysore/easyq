@@ -1,0 +1,36 @@
+/* Make the score container smaller and more compact */
+.score-container {
+  text-align: center;
+  padding: 5px;  /* Reduce padding for a more compact look */
+  border: none;  /* Remove the border for a cleaner look */
+  width: auto;   /* Set width to auto to fit content */
+  background-color: transparent;  /* No background color */
+  font-size: 12px;  /* Smaller font size for the score */
+  display: inline-block;  /* Ensure it doesn't take up the whole width */
+}
+
+/* Title styling */
+.score-container h2 {
+  color: #4CAF50;
+  font-size: 14px;  /* Slightly smaller font size */
+  margin-bottom: 5px;  /* Reduce margin between title and score */
+}
+
+/* Score display */
+.score-container p {
+  font-size: 12px;  /* Smaller font size for the score */
+  color: #333;
+  font-weight: bold;
+  margin-top: 0;  /* Remove top margin */
+}
+
+/* Optional error or loading message */
+.score-container p {
+  font-size: 10px;  /* Smaller font size for error or loading */
+  color: #f44336; /* Red color for error */
+}
+
+.score-container ng-template {
+  font-size: 10px; /* Smaller text for loading */
+  color: #2196F3; /* Blue color for loading */
+}

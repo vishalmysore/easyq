@@ -7,10 +7,16 @@ import { UserDetailsComponent } from '../user-details/user-details-component';
 import { JwtPayload, jwtDecode } from "jwt-decode";
 import { AuthEventService } from '../interceptors/auth-event.service';
 import { Subscription } from 'rxjs';
+import { ScoreComponent } from '../score/score.component';
+import { MatButton } from '@angular/material/button';
 
 @Component({
   selector: 'app-usergen',
   templateUrl: './usergen.component.html',
+  imports: [
+    ScoreComponent,
+    MatButton
+  ],
   styleUrl: './usergen.component.css'
 })
 export class UsergenComponent implements OnInit, OnDestroy {
