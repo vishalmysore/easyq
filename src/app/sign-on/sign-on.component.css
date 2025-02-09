@@ -1,0 +1,38 @@
+.login-button {
+  align-content: center;
+  align-items: center;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+}
+mat-card{
+  width: 100%;
+}
+mat-card-title{
+  color: white;
+  padding-bottom: 10px;
+}
+mat-card-header {
+justify-content: center;
+  padding-bottom: 10px;
+}
+mat-card-content {
+  justify-content: center;
+}
+
+
+
+.google-icon {
+  width: 20px;
+  height: 20px;
+  vertical-align: sub;
+}
+
+
+.user-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+}

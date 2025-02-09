@@ -2,12 +2,14 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { WebSocketService } from './websocket.service';
 import { Subscription } from 'rxjs';
 import { FormsModule } from '@angular/forms';
+import { NgForOf } from '@angular/common';
 
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
   imports: [
-    FormsModule
+    FormsModule,
+    NgForOf
   ],
   styleUrls: ['./chat.component.css']
 })

@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, effect, HostListener, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Router } from '@angular/router';
 import { NgModule } from '@angular/core';
@@ -32,14 +32,16 @@ import { Story } from './models/story.model';
 import { User } from './models/user.model';
 import { Quiz } from './models/quiz.model';
 import { WebSocketService } from './chat/websocket.service';
-import { ChatComponent } from './chat/chat.component';
+import { AuthGoogleService } from './auth/auth.google.service';
+import { BackendResponse } from './auth/google.auth.response';
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'], // Note: This should be `styleUrls`, not `styleUrl`
   standalone: true,
-  imports: [MatProgressSpinner, RouterOutlet, FormsModule, NgForOf, NgIf, NgClass, UsergenComponent, EasyqheaderComponent, NgOptimizedImage, FooterComponent, MatButton, MatTooltip, ChatComponent]// Add FormsModule here
+  imports: [MatProgressSpinner, RouterOutlet, FormsModule, NgForOf, NgIf, NgClass, UsergenComponent, EasyqheaderComponent, NgOptimizedImage, FooterComponent, MatButton, MatTooltip]// Add FormsModule here
 })
 export class AppComponent implements OnInit {
   story: Story | null = null;
@@ -67,10 +69,54 @@ export class AppComponent implements OnInit {
   scrolled = false;
   private socket: WebSocket | undefined;
   private httpClient: any;
+
   private prompt: string ='';
   private quizId: string | undefined;
   private linkId: string | undefined;
-  constructor(private webSocketService: WebSocketService,private storyService: StoryService,private http: HttpClient,private route: ActivatedRoute, private router: Router, private quizService: QuizService,private linkService: LinkService,private dialog: MatDialog) {}
+  private authService = inject(AuthGoogleService);
+
+  profile = this.authService.profile;
+  constructor(private webSocketService: WebSocketService,private storyService: StoryService,private http: HttpClient,private route: ActivatedRoute, private router: Router, private quizService: QuizService,private linkService: LinkService,private dialog: MatDialog) {
+    effect(() => {
+      if ( this.profile() != null ){
+        let obj = JSON.stringify(this.profile(), null, 2);
+        console.log(`The current user is: ${obj}`);
+        this.sendTokenToBackend(this.authService.getAccessToken());
+      }else {
+        console.log(`The current user is: NULL`);
+      }
+    });
+  }
+  private backendUrlForGoogle = `${environment.authUrl}google`;
+  private sendTokenToBackend(tokenAccess:string) {
+    // Get the JWT token from sessionStorage or localStorage
+    const token = sessionStorage.getItem('jwtToken') || localStorage.getItem('jwtToken');
+
+    // Determine if it's a new user based on the presence of the token
+    const newUser = !token;
+
+    // Prepare the request body based on whether the user is new or not
+    const requestBody = {
+      jwtToken: token || null,  // Send null if token is not found
+      newUser: newUser
+    };
+    console.log(requestBody);
+    // Send a POST request
+    this.http.post(this.backendUrlForGoogle, requestBody).subscribe({
+      next: (response:any) => {
+        console.log('Token sent successfully:', response);
+        if (response.token) {
+          // Update the JWT token in localStorage and sessionStorage
+          localStorage.setItem('jwtToken', response.token);
+          sessionStorage.setItem('jwtToken', response.token);
+          console.log('JWT Token saved to localStorage and sessionStorage');
+        }
+      },
+      error: (error) => {
+        console.error('Error sending token:', error);
+      }
+    });
+  }
 
   startMessageRotation() {
     this.intervalId = setInterval(() => {
@@ -83,7 +129,11 @@ export class AppComponent implements OnInit {
     console.log(environment.apiUrl);
     this.route.queryParams.subscribe(params => {
       this.articleUrl = params['url'] || document.referrer || null;
-
+      console.log(window.location.href);
+      console.log(document.referrer);
+      if(window.location.href.startsWith(<string>this.articleUrl)){
+        this.articleUrl = null;
+      }
       if (!this.articleUrl) {
         console.log("No article URL found. Please try again.");
       } else {

@@ -1,4 +1,4 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';  // Import provideHttpClient
 import { routes } from './app.routes';
@@ -7,6 +7,9 @@ import {  HTTP_INTERCEPTORS } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { OAuthModule, OAuthService } from 'angular-oauth2-oidc';
+import {environment} from '../environments/environment';
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),  // Keep this as is
@@ -17,6 +20,14 @@ export const appConfig: ApplicationConfig = {
       provide:HTTP_INTERCEPTORS,
       useClass:AuthInterceptor,
       multi:true
-    }, provideAnimationsAsync()
+    }, provideAnimationsAsync(),
+    importProvidersFrom(OAuthModule.forRoot({ // Initialize OAuthModule with configuration
+      resourceServer: {
+
+        allowedUrls: [`${environment.authUrl}google`], // Only send tokens for these URLs
+        sendAccessToken: true
+      }
+    })),
+    OAuthService  // Provide OAuthService globally
   ]
 };
