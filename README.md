@@ -1,6 +1,6 @@
 # EasyQZ 🧠📖
 
-**EasyQZ** is an AI Powered Knowledge enhancer and Quiz Generation tool that allows users to generate quizzes from any article, link, topic, or custom text. Whether you're a student, educator, or professional, EasyQ helps you test your knowledge, compete with others, and discover trending topics.
+**EasyQZ** is an AI Research Agent for knowledge enhancement via intelligent Quiz Generation and feedback  that allows users to generate quizzes from any article, link, topic, or custom text. Whether you're a student, educator, or professional, EasyQ helps you test your knowledge, compete with others, and discover trending topics.
 
 ## Live Demo
 - **URL**: [EasyQZ](https://easyqz.online/)
@@ -45,7 +45,8 @@ If dragging doesn’t work, follow these steps:
    ```javascript
    javascript:(function(){var articleUrl=encodeURIComponent(window.location.href);window.open('https://easyqz.online?url='+articleUrl,'_blank');})();
 
-
+### Architecture
+![Architecture](serveragent.png)
 
 ### 🌟 Core Features:
 - **Automatic Quiz Generation** – Instantly creates quizzes from any article, text, or topic.
