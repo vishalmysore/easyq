@@ -2,3 +2,71 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/* Styling for the challenge card component */
+/* Style for the draggable panel container */
+/* Style for the draggable panel container */
+/* Make sure to target only the challenge-panel specifically */
+/* Ensure the panel itself is positioned correctly */
+/* Ensure the panel itself is positioned correctly */
+.challenge-panel {
+  position: fixed;
+  top: 50px;
+  left: 50px;
+  z-index: 1000;
+  transition: all 0.3s ease;
+  cursor: move;
+  width: 500px;
+  background-color: white !important;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+  resize: both;
+  overflow: hidden;
+}
+.resize-handle {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  width: 10px;
+  height: 10px;
+  background-color: gray;
+  cursor: se-resize; /* Change cursor to indicate resizing */
+}
+
+/* Style for the mat-card inside the draggable panel */
+.challenge-card {
+  background-color: grey !important;
+  border-radius: 10px !important;
+  padding: 10px !important;
+}
+
+/* Panel header actions to move buttons to the right */
+.mat-card-header {
+  background-color: #3f51b5 !important;
+  color: white !important;
+  display: flex;
+  justify-content: space-between;  /* Pushes title to the left and actions to the right */
+  align-items: center;
+  padding: 10px !important;
+  position: relative;  /* Needed for absolute positioning of buttons */
+}
+
+/* Panel Content styling */
+.mat-card-content {
+  padding: 10px !important;
+  font-size: 14px !important;
+}
+
+/* Adjusting panel-actions to ensure buttons align on the right */
+.panel-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px; /* Optional: spacing between the buttons */
+  position: absolute;
+  top: 10px;  /* Align the buttons at the top of the header */
+  right: 10px;  /* Align the buttons to the right */
+}
+
+/* Optional styling for the buttons */
+.panel-actions button {
+  margin-left: 5px; /* Optional: spacing between the buttons */
+}

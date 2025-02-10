@@ -31,9 +31,9 @@ import { StoryService } from './story.service';
 import { Story } from './models/story.model';
 import { User } from './models/user.model';
 import { Quiz } from './models/quiz.model';
-import { WebSocketService } from './chat/websocket.service';
+
 import { AuthGoogleService } from './auth/auth.google.service';
-import { BackendResponse } from './auth/google.auth.response';
+import { ChallengesComponent } from './challenges/challenges.component';
 
 
 @Component({
@@ -41,7 +41,7 @@ import { BackendResponse } from './auth/google.auth.response';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'], // Note: This should be `styleUrls`, not `styleUrl`
   standalone: true,
-  imports: [MatProgressSpinner, RouterOutlet, FormsModule, NgForOf, NgIf, NgClass, UsergenComponent, EasyqheaderComponent, NgOptimizedImage, FooterComponent, MatButton, MatTooltip]// Add FormsModule here
+  imports: [MatProgressSpinner, RouterOutlet, FormsModule, NgForOf, NgIf, NgClass, UsergenComponent, EasyqheaderComponent, NgOptimizedImage, FooterComponent, MatButton, MatTooltip, ChallengesComponent]// Add FormsModule here
 })
 export class AppComponent implements OnInit {
   story: Story | null = null;
@@ -76,7 +76,7 @@ export class AppComponent implements OnInit {
   private authService = inject(AuthGoogleService);
 
   profile = this.authService.profile;
-  constructor(private webSocketService: WebSocketService,private storyService: StoryService,private http: HttpClient,private route: ActivatedRoute, private router: Router, private quizService: QuizService,private linkService: LinkService,private dialog: MatDialog) {
+  constructor(private storyService: StoryService,private http: HttpClient,private route: ActivatedRoute, private router: Router, private quizService: QuizService,private linkService: LinkService,private dialog: MatDialog) {
     effect(() => {
       if ( this.profile() != null ){
         let obj = JSON.stringify(this.profile(), null, 2);
@@ -125,7 +125,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.webSocketService.connect('ws/chat');
+
     console.log(environment.apiUrl);
     this.route.queryParams.subscribe(params => {
       this.articleUrl = params['url'] || document.referrer || null;
@@ -243,7 +243,7 @@ export class AppComponent implements OnInit {
 
     const promptToSend = this.inputValue.trim() || this.prompt;
 
-    this.webSocketService.sendMessage('ws/chat', this.user?.userId +"is searchign for "+promptToSend);
+
     const endpoint = `${environment.apiUrl}getQuestions?prompt=${promptToSend}&difficulty=${difficulty}`;
     this.quizSubmitted = false;
     this.questions = null;

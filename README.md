@@ -5,7 +5,7 @@
 ## Live Demo
 - **URL**: [EasyQZ](https://easyqz.online/)
 
-## Enable EasyQZ for Your Article
+## For Authors
 
 To enable EasyQZ for your article, all you need to do is add the following link inside your article. You don't need to do anything else:
 
@@ -15,6 +15,35 @@ To enable EasyQZ for your article, all you need to do is add the following link 
 </a>
 ```
 
+## ** For Users : EasyQz Bookmarklet 📖🚀**
+
+Easily generate quizzes from any article with **EasyQz**! This bookmarklet allows you to create a quiz with just **one click** while reading an article.
+
+### **📌 How to Install the Bookmarklet**
+
+#### **Method 1: Drag & Drop (Easiest)**
+1. **Make sure your bookmarks bar is visible**:
+  - **Chrome/Edge**: `Ctrl+Shift+B` (Windows) or `Cmd+Shift+B` (Mac)
+  - **Firefox**: `Ctrl+Shift+B` to open bookmarks
+  - **Safari**: Go to **View > Show Favorites Bar**
+2. **Drag the link below** to your bookmarks bar:
+
+   **[EasyQz Quiz](javascript:(function(){var articleUrl=encodeURIComponent(window.location.href);window.open('https://easyqz.online/?url='+articleUrl,'_blank');})())**
+
+3. **Done!** Now, whenever you want to create a quiz from an article, just click the bookmarklet.
+
+---
+
+#### **Method 2: Manual Bookmark Addition**
+If dragging doesn’t work, follow these steps:
+
+1. Open your **Bookmarks Manager** (`Ctrl+Shift+O` on Chrome).
+2. Click **"Add Bookmark"** or **"New Bookmark"**.
+3. **Name** it: `EasyQz Quiz`
+4. **Paste the following code** into the URL field:
+
+   ```javascript
+   javascript:(function(){var articleUrl=encodeURIComponent(window.location.href);window.open('https://easyqz.online?url='+articleUrl,'_blank');})();
 
 
 

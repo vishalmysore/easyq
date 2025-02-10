@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ScoreService} from '../service/score.service';
 import { NgIf } from '@angular/common';
-import { WebSocketService } from '../chat/websocket.service';
+import { WebSocketService } from '../service/websocket.service';
 
 @Component({
   selector: 'app-score',
@@ -21,7 +21,7 @@ export class ScoreComponent implements OnInit {
   ngOnInit(): void {
     // Fetch the overall score on component initialization
     this.getOverallScore();
-    this.webSocketSubscription = this.webSocketService.connect('ws/score') // Replace with the correct endpoint
+    this.webSocketSubscription = this.webSocketService.connect('score') // Replace with the correct endpoint
       .subscribe(
         (message: any) => {
           // Handle the incoming WebSocket message (assuming it's a JSON with new score data)
