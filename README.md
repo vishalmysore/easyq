@@ -28,7 +28,7 @@ Easily generate quizzes from any article with **EasyQz**! This bookmarklet allow
   - **Safari**: Go to **View > Show Favorites Bar**
 2. **Drag the link below** to your bookmarks bar:
 
-   **[EasyQz Quiz](javascript:(function(){var articleUrl=encodeURIComponent(window.location.href);window.open('https://easyqz.online/?url='+articleUrl,'_blank');})())**
+   ![EasyQz Quiz](javascript:(function(){var articleUrl=encodeURIComponent(window.location.href);window.open('https://easyqz.online/?url='+articleUrl,'_blank');})())
 
 3. **Done!** Now, whenever you want to create a quiz from an article, just click the bookmarklet.
 
