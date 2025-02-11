@@ -1,13 +1,13 @@
 <div class="top-right">
-  <button  mat-button color="primary" (click)="openUserDetailsDialog()">
-    🙏 Hello {{username}}!
-  </button>
-  <div class="score-wrapper">
-    <app-score></app-score>
+  <div class="user-section">
+    <button mat-button color="primary" (click)="openUserDetailsDialog()">
+      🙏 Hello {{username}}!
+    </button>
+    <app-score class="score-container"></app-score>
   </div>
+
   <button mat-raised-button color="primary" class="signup-btn" (click)="signUp()">
     ✍️ Sign Up
   </button>
-
-
 </div>
+

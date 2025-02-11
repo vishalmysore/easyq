@@ -4,6 +4,12 @@
   gap: 1rem;
   margin-right: 1rem; /* Prevents touching right screen edge */
 }
+.user-section {
+  display: flex;
+  flex-direction: column; /* Stack "Hello" button and score */
+  align-items: center; /* Center them properly */
+  gap: 0.2rem;
+}
 .top-right span {
   pointer-events: auto; /* Ensure clicks work */
   cursor: pointer; /* Show hand cursor */

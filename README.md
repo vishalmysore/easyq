@@ -21,20 +21,8 @@ Easily generate quizzes from any article with **EasyQz**! This bookmarklet allow
 
 ### **📌 How to Install the Bookmarklet**
 
-#### **Method 1: Drag & Drop (Easiest)**
-1. **Make sure your bookmarks bar is visible**:
-  - **Chrome/Edge**: `Ctrl+Shift+B` (Windows) or `Cmd+Shift+B` (Mac)
-  - **Firefox**: `Ctrl+Shift+B` to open bookmarks
-  - **Safari**: Go to **View > Show Favorites Bar**
-2. **Drag the link below** to your bookmarks bar:
 
-   ![EasyQz Quiz](javascript:(function(){var articleUrl=encodeURIComponent(window.location.href);window.open('https://easyqz.online/?url='+articleUrl,'_blank');})())
-
-3. **Done!** Now, whenever you want to create a quiz from an article, just click the bookmarklet.
-
----
-
-#### **Method 2: Manual Bookmark Addition**
+#### **Manual Bookmark Addition**
 If dragging doesn’t work, follow these steps:
 
 1. Open your **Bookmarks Manager** (`Ctrl+Shift+O` on Chrome).

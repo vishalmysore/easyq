@@ -33,7 +33,7 @@ import { User } from './models/user.model';
 import { Quiz } from './models/quiz.model';
 
 import { AuthGoogleService } from './auth/auth.google.service';
-import { ChallengesComponent } from './challenges/challenges.component';
+
 
 
 @Component({
@@ -41,7 +41,7 @@ import { ChallengesComponent } from './challenges/challenges.component';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'], // Note: This should be `styleUrls`, not `styleUrl`
   standalone: true,
-  imports: [MatProgressSpinner, RouterOutlet, FormsModule, NgForOf, NgIf, NgClass, UsergenComponent, EasyqheaderComponent, NgOptimizedImage, FooterComponent, MatButton, MatTooltip, ChallengesComponent]// Add FormsModule here
+  imports: [MatProgressSpinner, RouterOutlet, FormsModule, NgForOf, NgIf, NgClass, UsergenComponent, EasyqheaderComponent, NgOptimizedImage, FooterComponent, MatButton, MatTooltip]// Add FormsModule here
 })
 export class AppComponent implements OnInit {
   story: Story | null = null;

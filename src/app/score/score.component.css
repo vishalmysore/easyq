@@ -1,13 +1,16 @@
 /* Make the score container smaller and more compact */
+/* Ensure the score appears as a block element below the button */
 .score-container {
+  display: block;  /* Forces it to be on a new line */
   text-align: center;
-  padding: 5px;  /* Reduce padding for a more compact look */
-  border: none;  /* Remove the border for a cleaner look */
-  width: auto;   /* Set width to auto to fit content */
-  background-color: transparent;  /* No background color */
-  font-size: 12px;  /* Smaller font size for the score */
-  display: inline-block;  /* Ensure it doesn't take up the whole width */
+  padding: 5px;
+
+  color: #333;
+  font-weight: bold;
+  margin-top: -5px; /* Optional: Slight negative margin to pull score up */
+  font-size: 12px; /* Space between button and score */
 }
+
 
 /* Title styling */
 .score-container h2 {
