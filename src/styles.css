@@ -9,36 +9,125 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 /* Ensure the panel itself is positioned correctly */
 /* Ensure the panel itself is positioned correctly */
 /* Style for the side panel */
-.challenge-panel {
-  position: fixed;
-  top: 50px;
-  left: 50px;
-  z-index: 1000;
-  background-color: white;
-  width: 300px;  /* Default width */
-  height: 100%;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+/* app-challenges.component.css */
+
+/* Container for the Challenges Section */
+/* app-challenges.component.css */
+
+/* Container for the Challenges Section */
+/* app-challenges.component.css */
+
+/* Container for the Challenges Section */
+.challenges-container {
   display: flex;
   flex-direction: column;
-}
-
-/* Resize handle styling */
-.resizer {
-  width: 10px;
-  height: 100%;
-  background-color: #3f51b5;
-  cursor: ew-resize;  /* Cursor for resize */
-  position: absolute;
-  right: 0;
-  top: 0;
-}
-
-/* Panel Header styling */
-.mat-card-header {
-  background-color: #3f51b5;
-  color: white;
-  display: flex;
+  padding: 15px;
+  font-family: 'Arial', sans-serif;
   justify-content: space-between;
-  align-items: center;
-  padding: 10px;
+  gap: 20px;
+}
+
+/* Notification Section */
+.notification-section {
+  margin-bottom: 20px;
+}
+
+/* Notification Card Styling */
+.notification-card {
+
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  font-size: 0.875rem; /* Smaller font size */
+  color: whitesmoke; /* Dark green text color */
+}
+.notifications-panel {
+  flex: 1;
+}
+
+.user-challenges-panel {
+  flex: 2;
+}
+
+.notification-card,
+.challenges-card {
+  margin-bottom: 20px;
+}
+
+mat-table {
+  width: 100%;
+  margin-top: 10px;
+}
+/* Table Section */
+.table-section {
+  margin-top: 20px;
+}
+
+/* User Table Card Styling */
+.user-table-card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  font-size: 0.975rem; /* Smaller font size */
+}
+
+/* Mat-Card Header */
+challenges-mat-card-header {
+  background-color: #5c6bc0; /* Soft indigo color */
+  color: white;
+  border-radius: 8px 8px 0 0;
+  font-size: 1rem;
+}
+
+.challenges-mat-card-title {
+  font-size: 1px;
+  font-weight: bold;
+  color: white;
+}
+
+/* Mat-Table Styling */
+challenges-mat-table {
+  width: 100%;
+  font-size: 0.875rem; /* Smaller font size */
+}
+
+mat-header-row {
+  background-color: #f4f4f4; /* Light gray for headers */
+  font-weight: 600;
+}
+
+mat-row {
+  background-color: #fafafa; /* Slightly lighter gray for rows */
+}
+
+/* Challenge Button Styling */
+button {
+  background-color: #ffa726; /* Orange color */
+  color: white;
+  font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  transition: background-color 0.3s;
+}
+
+/* Hover effect for button */
+button:hover {
+  background-color: #fb8c00; /* Darker orange */
+}
+
+/* Hover effect for table rows */
+.mat-row:hover {
+  background-color: #f1f1f1; /* Light gray when hovering rows */
+}
+
+/* Mat Table Cells */
+.mat-cell {
+  font-size: 0.875rem; /* Smaller font size */
+  color: #616161; /* Darker gray for text */
+}
+
+/* Mat Header Cells */
+.mat-header-cell {
+  font-weight: 600;
+  color: #424242; /* Darker color for headers */
 }

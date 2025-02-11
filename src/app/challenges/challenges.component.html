@@ -1,29 +1,79 @@
-<div class="challenge-panel" #panelElement>
-  <mat-card class="challenge-card">
-    <!-- Panel Header with Minimize and Close buttons -->
-    <mat-card-header>
-      <mat-card-title>Challenges</mat-card-title>
+<div class="challenges-container">
+  <div class="notifications-panel">
+    <mat-card class="notification-card">
+      <mat-card-header>
+        <div class="challenges-mat-card-title">
+        <mat-card-title >Notifications</mat-card-title>
+        </div>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-table [dataSource]="notificationDataSource">
+          <ng-container matColumnDef="userId">
+            <mat-header-cell *matHeaderCellDef> User ID </mat-header-cell>
+            <mat-cell *matCellDef="let user"> {{ user.userId }} </mat-cell>
+          </ng-container>
 
-      <!-- Minimize and Close Buttons -->
-      <div class="panel-actions">
-        <button mat-icon-button (click)="minimizePanel()">
-          <mat-icon>remove</mat-icon>
-        </button>
-        <button mat-icon-button (click)="closePanel()">
-          <mat-icon>close</mat-icon>
-        </button>
-      </div>
-    </mat-card-header>
+          <ng-container matColumnDef="linkUrl">
+            <mat-header-cell *matHeaderCellDef> Link URL </mat-header-cell>
+            <mat-cell *matCellDef="let user">
+              <a [href]="user.linkUrl" target="_blank">{{ user.linkUrl }}</a>
+            </mat-cell>
+          </ng-container>
 
-    <!-- Panel Content -->
-    <mat-card-content *ngIf="!isMinimized">
-      <!-- Challenge details here -->
-      <p>User: {{ userId }}</p>
-      <p>Reading: {{ currentArticle }}</p>
-      <p>Score: {{ overallScore }}</p>
-    </mat-card-content>
-  </mat-card>
+          <ng-container matColumnDef="currentScore">
+            <mat-header-cell *matHeaderCellDef> Current Score </mat-header-cell>
+            <mat-cell *matCellDef="let user"> {{ user.currentScore }} </mat-cell>
+          </ng-container>
 
-  <!-- Resizer handle -->
-  <div class="resizer" (mousedown)="startResize($event)"></div>
+          <ng-container matColumnDef="challengeHim">
+            <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+            <mat-cell *matCellDef="let user">
+              <button mat-button (click)="challenge(user)">Challenge</button>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="user-challenges-panel">
+    <mat-card class="challenges-card">
+      <mat-card-header>
+        <div class="challenges-mat-card-title">
+        <mat-card-title>Active Challenges</mat-card-title>
+        </div>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-table [dataSource]="userDataSource">
+          <ng-container matColumnDef="userId">
+            <mat-header-cell *matHeaderCellDef> User ID </mat-header-cell>
+            <mat-cell *matCellDef="let user"> {{ user.userId }} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="linkUrl">
+            <mat-header-cell *matHeaderCellDef> Link URL </mat-header-cell>
+            <mat-cell *matCellDef="let user"> <a [href]="user.linkUrl" target="_blank">{{ user.linkUrl }}</a> </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="currentScore">
+            <mat-header-cell *matHeaderCellDef> Current Score </mat-header-cell>
+            <mat-cell *matCellDef="let user"> {{ user.currentScore }} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="challengeHim">
+            <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+            <mat-cell *matCellDef="let user">
+              <button mat-button (click)="challenge(user)">Accept Challenge</button>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>

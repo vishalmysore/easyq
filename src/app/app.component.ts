@@ -33,6 +33,8 @@ import { User } from './models/user.model';
 import { Quiz } from './models/quiz.model';
 
 import { AuthGoogleService } from './auth/auth.google.service';
+import { SplitAreaComponent, SplitComponent } from 'angular-split';
+import { ChallengesComponent } from './challenges/challenges.component';
 
 
 
@@ -41,7 +43,7 @@ import { AuthGoogleService } from './auth/auth.google.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'], // Note: This should be `styleUrls`, not `styleUrl`
   standalone: true,
-  imports: [MatProgressSpinner, RouterOutlet, FormsModule, NgForOf, NgIf, NgClass, UsergenComponent, EasyqheaderComponent, NgOptimizedImage, FooterComponent, MatButton, MatTooltip]// Add FormsModule here
+  imports: [SplitComponent, SplitAreaComponent, MatProgressSpinner, RouterOutlet, FormsModule, NgForOf, NgIf, NgClass, UsergenComponent, EasyqheaderComponent, NgOptimizedImage, FooterComponent, MatButton, MatTooltip, ChallengesComponent]// Add FormsModule here
 })
 export class AppComponent implements OnInit {
   story: Story | null = null;
@@ -404,6 +406,8 @@ export class AppComponent implements OnInit {
         return "📚 Knowledge is power! Ever thought about diving into Agentic AI? Time to level up! 🤖";
       case 'fun':
         return "🎊 Let the good times roll! Fancy some Bollywood trivia to spice up your day? 🍿";
+      case 'news':
+        return "📰 Stay informed with the latest world news! Ready to test your knowledge on current events? 🌍";
       default:
         return "";
     }
@@ -422,6 +426,9 @@ export class AppComponent implements OnInit {
         return this.prompt;
       case 'fun':
         this.prompt = "Bollywood";
+        return this.prompt;
+      case 'news':
+        this.prompt = "Tariff Consequences";
         return this.prompt;
       default:
         this.prompt = "Topic or Link: Java Interview, World Economy, Cricket...";

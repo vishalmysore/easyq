@@ -33,6 +33,7 @@ export class ScoreComponent implements OnInit {
         },
         (error) => {
           console.error('WebSocket error:', error);
+          this.errorMessage = 'Error occurred with the server connection. Please try again later.';
         }
       );
 

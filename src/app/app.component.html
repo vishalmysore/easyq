@@ -391,7 +391,15 @@
 
   <app-usergen></app-usergen>
 </div>
+<div class="split-content-container">
+<as-split direction="horizontal">
+  <as-split-area [size]="10">
+    <div class="content">
+      <app-challenges></app-challenges>
+    </div>
+  </as-split-area>
 
+  <as-split-area [size]="90">
 <main class="main">
 
   <div class="content">
@@ -404,6 +412,9 @@
         <div class="category-container">
           <div class="category-card" (click)="openStoryPopup()">
             <span class="emoji">📜Story</span>
+          </div>
+          <div class="category-card" (click)="selectCategory('news')">
+            <span class="emoji">📰News</span>
           </div>
           <div class="category-card" (click)="selectCategory('kids')">
             <span class="emoji">🧒Kids</span>
@@ -500,10 +511,13 @@
   </div>
   <!-- Other content of your app -->
 
+
   <app-footer></app-footer>
 
 </main>
-
+  </as-split-area>
+</as-split>
+</div>
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * The content above * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * * -->

@@ -36,6 +36,7 @@ export class WebSocketService {
 
     socket.onerror = (error) => {
       console.error(`WebSocket error for ${endpoint}:`, error);
+      this.messageSubjects[endpoint].error(error);
     };
 
     socket.onclose = () => {
