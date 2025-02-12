@@ -12,8 +12,9 @@ export class NotificationService {
   constructor(private http: HttpClient, private zone: NgZone) {}
 
   connect(): Observable<string> {
+    const token = sessionStorage.getItem('jwtToken') || localStorage.getItem('jwtToken');
     return new Observable<string>(observer => {
-      this.eventSource = new EventSource(`${environment.broadcastUrl}broadcast`); // Adjust your backend URL
+      this.eventSource = new EventSource(`${environment.broadcastUrl}broadcast?token=${token}`); // Adjust your backend URL
 
       this.eventSource.onmessage = (event) => {
         this.zone.run(() => {

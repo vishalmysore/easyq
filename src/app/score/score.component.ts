@@ -33,7 +33,7 @@ export class ScoreComponent implements OnInit {
         },
         (error) => {
           console.error('WebSocket error:', error);
-          this.errorMessage = 'Error occurred with the server connection. Please try again later.';
+          this.errorMessage = 'Server Error. Please Refresh the page and try again.';
         }
       );
 
@@ -47,7 +47,8 @@ export class ScoreComponent implements OnInit {
         this.overallScore = score;  // Store the fetched score
       },
       (error) => {
-        this.errorMessage = 'Error fetching overall score: ' + error.message;  // Handle error
+        console.error('RestAPI error:', error);
+        this.errorMessage = 'Error fetching overall score: ';  // Handle error
       }
     );
   }

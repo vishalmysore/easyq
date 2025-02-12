@@ -26,8 +26,12 @@
         <td mat-cell *matCellDef="let link"> {{ link.totalAccessCount }} </td>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="['url', 'author', 'totalAccessCount']"></tr>
-      <tr mat-row *matRowDef="let row; columns: ['url', 'author', 'totalAccessCount'];"></tr>
+      <ng-container matColumnDef="keywords">
+        <th mat-header-cell *matHeaderCellDef> Topics </th>
+        <td mat-cell *matCellDef="let link"> {{ link.keywords }} </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="['url', 'author', 'totalAccessCount','keywords']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['url', 'author', 'totalAccessCount','keywords'];"></tr>
     </table>
   </mat-card>
 </div>

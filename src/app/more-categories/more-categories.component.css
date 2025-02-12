@@ -1,0 +1,85 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  width: 600px; /* Increased width */
+  max-height: 80vh; /* Limits height */
+  overflow: hidden; /* Prevents unnecessary overflow */
+}
+
+.modal-content {
+  text-align: center;
+}
+
+.categories-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-height: 60vh; /* Prevents the modal from being too tall */
+  overflow-y: auto; /* Enables scrolling inside the modal */
+  padding: 10px;
+}
+
+.category-box {
+  width: 45%; /* Two-column layout */
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.category-title {
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  color: #007bff;
+}
+
+.category-title:hover {
+  text-decoration: underline;
+}
+
+.subcategory-list {
+  list-style: none;
+  padding-left: 10px;
+  margin-top: 5px;
+}
+
+.subcategory-list li {
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+}
+
+.subcategory-list li:hover {
+  color: #007bff;
+}
+
+.close-btn {
+  margin-top: 15px;
+  padding: 8px 12px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  background: #0056b3;
+}

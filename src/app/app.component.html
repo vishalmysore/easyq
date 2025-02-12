@@ -428,6 +428,15 @@
           <div class="category-card" (click)="selectCategory('fun')">
             <span class="emoji">🎉Fun</span>
           </div>
+          <div class="category-card" (click)="openMoreCategories()">
+            <span class="emoji">➕More</span>
+          </div>
+
+          <!-- Include the popup component -->
+          <app-more-categories *ngIf="showMorePopup"
+                               (closePopup)="closeMoreCategories()"
+                               (categorySelected)="selectCategory($event)">
+          </app-more-categories>
         </div>
         <div *ngIf="isLoading" class="loading-container">
           <mat-spinner diameter="50"></mat-spinner>

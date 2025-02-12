@@ -35,6 +35,8 @@ import { Quiz } from './models/quiz.model';
 import { AuthGoogleService } from './auth/auth.google.service';
 import { SplitAreaComponent, SplitComponent } from 'angular-split';
 import { ChallengesComponent } from './challenges/challenges.component';
+import { UsernameService } from './service/username.service';
+import { MoreCategoriesComponent } from './more-categories/more-categories.component';
 
 
 
@@ -43,7 +45,7 @@ import { ChallengesComponent } from './challenges/challenges.component';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'], // Note: This should be `styleUrls`, not `styleUrl`
   standalone: true,
-  imports: [SplitComponent, SplitAreaComponent, MatProgressSpinner, RouterOutlet, FormsModule, NgForOf, NgIf, NgClass, UsergenComponent, EasyqheaderComponent, NgOptimizedImage, FooterComponent, MatButton, MatTooltip, ChallengesComponent]// Add FormsModule here
+  imports: [SplitComponent, SplitAreaComponent, MatProgressSpinner, RouterOutlet, FormsModule, NgForOf, NgIf, NgClass, UsergenComponent, EasyqheaderComponent, NgOptimizedImage, FooterComponent, MatButton, MatTooltip, ChallengesComponent, MoreCategoriesComponent]// Add FormsModule here
 })
 export class AppComponent implements OnInit {
   story: Story | null = null;
@@ -78,7 +80,7 @@ export class AppComponent implements OnInit {
   private authService = inject(AuthGoogleService);
 
   profile = this.authService.profile;
-  constructor(private storyService: StoryService,private http: HttpClient,private route: ActivatedRoute, private router: Router, private quizService: QuizService,private linkService: LinkService,private dialog: MatDialog) {
+  constructor(private usernameService: UsernameService,private storyService: StoryService,private http: HttpClient,private route: ActivatedRoute, private router: Router, private quizService: QuizService,private linkService: LinkService,private dialog: MatDialog) {
     effect(() => {
       if ( this.profile() != null ){
         let obj = JSON.stringify(this.profile(), null, 2);
@@ -107,11 +109,14 @@ export class AppComponent implements OnInit {
     this.http.post(this.backendUrlForGoogle, requestBody).subscribe({
       next: (response:any) => {
         console.log('Token sent successfully:', response);
-        if (response.token) {
+        if (response.jwtToken) {
           // Update the JWT token in localStorage and sessionStorage
-          localStorage.setItem('jwtToken', response.token);
-          sessionStorage.setItem('jwtToken', response.token);
-          console.log('JWT Token saved to localStorage and sessionStorage');
+          localStorage.setItem('jwtToken', response.jwtToken);
+          sessionStorage.setItem('jwtToken', response.jwtToken);
+          localStorage.setItem('username', response.userId);
+          sessionStorage.setItem('username', response.userId);
+          this.usernameService.updateUsername(response.userId);
+          console.log('JWT Token saved to localStorage and sessionStorage and new userid is '+response.userId);
         }
       },
       error: (error) => {
@@ -393,8 +398,22 @@ export class AppComponent implements OnInit {
       this.scrolled = true; // Hide the scroll prompt when scrolling
     }
   }
+  showMorePopup: boolean = false;
+  openMoreCategories() {
+    this.showMorePopup = true;
+  }
+
+  closeMoreCategories() {
+    this.showMorePopup = false;
+  }
+
+
+
+
+
   selectCategory(selectedCategory: string) {
     this.selectedCategory=selectedCategory;
+    this.showMorePopup = false;
   }
   getFunnyMessage(): string {
     switch (this.selectedCategory) {

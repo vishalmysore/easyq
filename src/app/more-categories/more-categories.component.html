@@ -1,0 +1,19 @@
+<div class="modal-overlay" (click)="close()"></div>
+<div class="modal">
+  <div class="modal-content">
+    <h2>More Categories</h2>
+    <div class="categories-container">
+      <div class="category-box" *ngFor="let category of categories">
+        <span class="category-title" (click)="selectCategory(category.name)">
+          📚 {{ category.name }}
+        </span>
+        <ul class="subcategory-list">
+          <li *ngFor="let sub of category.subcategories" (click)="selectCategory(sub)">
+            🔹 {{ sub }}
+          </li>
+        </ul>
+      </div>
+    </div>
+    <button class="close-btn" (click)="close()">Close</button>
+  </div>
+</div>

@@ -41,17 +41,17 @@ export class ChallengesComponent implements OnInit, OnDestroy {
 
   // User Data: A list of users who can be challenged
   userData = [
-    { userId: 'simpley-plyer', linkUrl: 'https://medium.com/p/94a6dc7700dd', currentScore: 80, challengeHim: 'Challenge' },
-    { userId: 'snow-storm', linkUrl: 'https://medium.com/p/2c74b60f3598', currentScore: 90, challengeHim: 'Challenge' }
+    { userId: 'simpley-plyer', linkUrl: 'https://medium.com/p/94a6dc7700dd', topics:'AI, Java, Agentic',currentScore: 80, challengeHim: 'Challenge' },
+    { userId: 'snow-storm', linkUrl: 'https://medium.com/p/2c74b60f3598',topics:'LLM, Embeddings', currentScore: 90, challengeHim: 'Challenge' }
   ];
 
   // Notification Data: List of notifications for test takers
   notificationData = [
-    { userId: 'expert-master', linkUrl: 'https://medium.com/p/dd8a608b5742', currentScore: 85, challengeHim: 'Challenge' }
+    { userId: 'expert-master', linkUrl: 'https://medium.com/p/dd8a608b5742', topics:'artificial intelligence',currentScore: 85, challengeHim: 'Challenge' }
   ];
 
   // Columns to be displayed in the table (common for both userData and notificationData)
-  displayedColumns: string[] = ['userId', 'linkUrl', 'currentScore', 'challengeHim'];
+  displayedColumns: string[] = ['userId', 'linkUrl','topics' ,'currentScore', 'challengeHim'];
 
   // Data sources for tables
   userDataSource = new MatTableDataSource(this.userData);
@@ -119,6 +119,7 @@ export class ChallengesComponent implements OnInit, OnDestroy {
       userId: notificationData.userId,
       linkUrl: notificationData.linkUrl,
       currentScore: notificationData.currentScore,
+      topics: notificationData.topics,
       challengeHim: 'Challenge',  // Button text can be customized
     };
     console.log(newNotification);

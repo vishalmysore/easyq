@@ -2,7 +2,7 @@ import {Component, effect, inject} from '@angular/core';
 import {MatButton} from '@angular/material/button';
 import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from '@angular/material/card';
 import { AuthGoogleService } from '../auth/auth.google.service';
-
+import { MatTooltip } from '@angular/material/tooltip';
 @Component({
   selector: 'app-sign-on',
   imports: [
@@ -10,7 +10,8 @@ import { AuthGoogleService } from '../auth/auth.google.service';
     MatCard,
     MatCardContent,
     MatCardHeader,
-    MatCardTitle
+    MatCardTitle,
+    MatTooltip
   ],
   templateUrl: './sign-on.component.html',
   styleUrl: './sign-on.component.css'

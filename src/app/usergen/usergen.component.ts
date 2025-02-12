@@ -9,6 +9,7 @@ import { AuthEventService } from '../interceptors/auth-event.service';
 import { Subscription } from 'rxjs';
 import { ScoreComponent } from '../score/score.component';
 import { MatButton } from '@angular/material/button';
+import { UsernameService } from '../service/username.service';
 
 @Component({
   selector: 'app-usergen',
@@ -22,8 +23,8 @@ import { MatButton } from '@angular/material/button';
 export class UsergenComponent implements OnInit, OnDestroy {
   protected username: string | undefined;
   private authSubscription!: Subscription;
-
-  constructor(private userService: UserService, private dialog: MatDialog, private authEventService: AuthEventService) {}
+  private usernameSubscription!: Subscription;
+  constructor(private usernameService: UsernameService ,private userService: UserService, private dialog: MatDialog, private authEventService: AuthEventService) {}
 
   ngOnInit() {
     this.setupUser();
@@ -33,6 +34,11 @@ export class UsergenComponent implements OnInit, OnDestroy {
       console.log("Auth expired event received. Re-initializing user...");
       this.markUserForRemoval();
       this.setupUser();
+    });
+    this.usernameSubscription = this.usernameService.username$.subscribe((newUsername) => {
+      if (newUsername) {
+        this.username = newUsername;  // Update the username when it changes
+      }
     });
   }
 

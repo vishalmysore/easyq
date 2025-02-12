@@ -1,33 +1,31 @@
-.login-button {
-  align-content: center;
-  align-items: center;
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: center;
+/* Ensure the background color is applied only to the tooltip */
+::ng-deep .mat-tooltip {
+  background-color: #ffeb3b; /* Light yellow background */
+  color: #000; /* Black text */
+  font-size: 14px; /* Adjust font size */
+  border-radius: 4px; /* Rounded corners */
+  padding: 8px; /* Padding inside the tooltip */
 }
-mat-card{
+
+/* Prevent global styles from affecting the mat-card */
+mat-card {
+  background-color: white !important; /* Ensure card background is white */
   width: 100%;
 }
-mat-card-title{
+
+mat-card-title {
   color: white;
   padding-bottom: 10px;
 }
+
 mat-card-header {
-justify-content: center;
+  justify-content: center;
   padding-bottom: 10px;
 }
+
 mat-card-content {
   justify-content: center;
 }
-
-
-
-.google-icon {
-  width: 20px;
-  height: 20px;
-  vertical-align: sub;
-}
-
 
 .user-container {
   display: flex;
@@ -35,4 +33,21 @@ mat-card-content {
   align-items: center;
   gap: 20px;
   padding: 20px;
+  background-color: transparent; /* Ensure container background is transparent */
+}
+
+/* Remove black background from other elements in case inherited styles are affecting them */
+.login-button {
+  background-color: transparent !important; /* Make sure button background doesn't inherit black */
+  align-content: center;
+  align-items: center;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+}
+
+.google-icon {
+  width: 20px;
+  height: 20px;
+  vertical-align: sub;
 }
