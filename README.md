@@ -34,7 +34,7 @@ If dragging doesn’t work, follow these steps:
    javascript:(function(){var articleUrl=encodeURIComponent(window.location.href);window.open('https://easyqz.online?url='+articleUrl,'_blank');})();
 
 ### Architecture
-![Architecture](serveragent.png)
+![Architecture](servercolor.png)
 
 ### 🌟 Core Features:
 - **Automatic Quiz Generation** – Instantly creates quizzes from any article, text, or topic.
