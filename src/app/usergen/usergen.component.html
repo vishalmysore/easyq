@@ -1,13 +1,21 @@
 <div class="top-right">
   <div class="user-section">
+    <!-- Show blue tick if verified -->
     <button mat-button color="primary" (click)="openUserDetailsDialog()">
-      🙏 Hello {{username}}!
+      🙏 Hello {{ username }}
+      <span *ngIf="isVerified">✅</span>
+      <span *ngIf="!isVerified">❌</span>
+      <app-score class="score-container" *ngIf="setupComplete"></app-score>
     </button>
-    <app-score class="score-container"></app-score>
+
+    <!-- Display 'Sign Up' button if the user is not verified -->
+    <button *ngIf="!isVerified" mat-raised-button color="primary" class="signup-btn" (click)="signUp()">
+      ✍️ Sign Up
+    </button>
+
+    <!-- Display 'Log Out' button if the user is verified -->
+    <button *ngIf="isVerified" mat-raised-button color="primary" class="signup-btn" (click)="logout()">
+      🚪 Log Out
+    </button>
   </div>
-
-  <button mat-raised-button color="primary" class="signup-btn" (click)="signUp()">
-    ✍️ Sign Up
-  </button>
 </div>
-

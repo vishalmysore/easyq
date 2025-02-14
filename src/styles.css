@@ -16,7 +16,28 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 /* Container for the Challenges Section */
 /* app-challenges.component.css */
+.signup-btn {
+  padding: 0.5rem 1.2rem;
+  border: none;
+  border-radius: 15px; /* Rounded corners */
+  background: linear-gradient(135deg, #ff6b6b, #ff8e53); /* Gradient for pop effect */
+  color: white;
+  font-size: 0.75rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 10px rgba(255, 107, 107, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.25px;
+  margin-right: 5px;
+}
 
+/* Hover Effect */
+.signup-btn:hover {
+  background: linear-gradient(135deg, #ff8e53, #ff6b6b); /* Change gradient on hover */
+  box-shadow: 0 8px 15px rgba(255, 107, 107, 0.6); /* Increase shadow on hover */
+  transform: translateY(-2px); /* Slight lift effect */
+}
 /* Container for the Challenges Section */
 .challenges-container {
   display: flex;
@@ -138,4 +159,12 @@ button:hover {
 .mat-header-cell {
   font-weight: 600;
   color: #424242; /* Darker color for headers */
+}
+@media   (max-width: 768px){
+  .signup-btn {
+    font-size: 0.2rem;
+    padding: 0.4rem 1rem;
+    min-width: auto;
+    margin-right: 2rem;
+  }
 }

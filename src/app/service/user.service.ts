@@ -5,12 +5,13 @@ import {environment} from '../../environments/environment';
 import { generateUsername } from 'unique-username-generator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, of, delay } from 'rxjs';
+import { UsernameService } from './username.service';
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   private maxRetries = 2;
-  constructor(private http: HttpClient,private snackBar: MatSnackBar) { }
+  constructor(private http: HttpClient,private snackBar: MatSnackBar,private usernameService: UsernameService,) { }
 
   createUser(username: string, attempt: number = 1): void {
     if (attempt > this.maxRetries) {
@@ -32,15 +33,18 @@ export class UserService {
 
     this.http.post<any>(endpoint, user).subscribe(
       (response) => {
+
         // Store token
         const token = response.token;
         sessionStorage.setItem('jwtToken', token);
         localStorage.setItem('user', JSON.stringify(user));
         localStorage.setItem('jwtToken', token);
+        this.usernameService.updateSetupComplete(true);
         console.log("User created successfully:", user);
       },
       (error: HttpErrorResponse) => {
         if (error.status === 400) {
+          this.usernameService.updateSetupComplete(false);
           console.warn(`User creation failed. Retrying with a new username (Attempt ${attempt})...`);
           const newUsername = generateUsername("-", 4, 12);;
 

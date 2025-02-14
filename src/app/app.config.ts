@@ -1,33 +1,45 @@
 import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
-import { provideHttpClient, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';  // Import provideHttpClient
+import { provideRouter, Router, NavigationEnd } from '@angular/router';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { routes } from './app.routes';
 import { AuthInterceptor } from './interceptors/auth-interceptor.service';
-import {  HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 import { OAuthModule, OAuthService } from 'angular-oauth2-oidc';
-import {environment} from '../environments/environment';
+import { environment } from '../environments/environment';
+
+declare let gtag: Function; // Ensure `gtag` is available
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideZoneChangeDetection({ eventCoalescing: true }),  // Keep this as is
+    provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-   // Keep this as is
     provideHttpClient(withInterceptorsFromDi()),
     {
-      provide:HTTP_INTERCEPTORS,
-      useClass:AuthInterceptor,
-      multi:true
-    }, provideAnimationsAsync(),
-    importProvidersFrom(OAuthModule.forRoot({ // Initialize OAuthModule with configuration
-      resourceServer: {
-
-        allowedUrls: [`${environment.authUrl}google`], // Only send tokens for these URLs
-        sendAccessToken: true
-      }
-    })),
-    OAuthService  // Provide OAuthService globally
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
+    provideAnimationsAsync(),
+    importProvidersFrom(
+      OAuthModule.forRoot({
+        resourceServer: {
+          allowedUrls: [`${environment.authUrl}google`],
+          sendAccessToken: true
+        }
+      })
+    ),
+    OAuthService,
+    {
+      provide: 'analytics',
+      useFactory: (router: Router) => {
+        router.events.subscribe(event => {
+          if (event instanceof NavigationEnd) {
+            gtag('config', 'G-Q6PTR943Y3', { 'page_path': event.urlAfterRedirects });
+          }
+        });
+      },
+      deps: [Router]
+    }
   ]
 };

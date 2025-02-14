@@ -87,7 +87,7 @@ export class AppComponent implements OnInit {
         console.log(`The current user is: ${obj}`);
         this.sendTokenToBackend(this.authService.getAccessToken());
       }else {
-        console.log(`The current user is: NULL`);
+        console.log(`The current user is: NULL from google , user not signed in`);
       }
     });
   }
@@ -116,6 +116,7 @@ export class AppComponent implements OnInit {
           localStorage.setItem('username', response.userId);
           sessionStorage.setItem('username', response.userId);
           this.usernameService.updateUsername(response.userId);
+          this.usernameService.updateVerificationStatus(true);
           console.log('JWT Token saved to localStorage and sessionStorage and new userid is '+response.userId);
         }
       },
@@ -130,10 +131,15 @@ export class AppComponent implements OnInit {
       this.currentMessageIndex = (this.currentMessageIndex + 1) % this.loadingMessages.length;
     }, 2000); // Change message every 2 seconds
   }
-
+  setupComplete = false;
   ngOnInit() {
 
     console.log(environment.apiUrl);
+    console.log("user setup done "+this.setupComplete);
+    this.usernameService.setupComplete$.subscribe((status) => {
+      this.setupComplete = status;
+      console.log("user setup done "+this.setupComplete);
+    });
     this.route.queryParams.subscribe(params => {
       this.articleUrl = params['url'] || document.referrer || null;
       console.log(window.location.href);

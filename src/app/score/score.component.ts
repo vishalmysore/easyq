@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ScoreService} from '../service/score.service';
 import { NgIf } from '@angular/common';
 import { WebSocketService } from '../service/websocket.service';
+import { UsernameService } from '../service/username.service';
 
 @Component({
   selector: 'app-score',
@@ -16,7 +17,7 @@ export class ScoreComponent implements OnInit {
   errorMessage: string = '';
 
   webSocketSubscription: any;
-  constructor(private scoreService: ScoreService, private webSocketService: WebSocketService) { }
+  constructor(private scoreService: ScoreService, private webSocketService: WebSocketService,private userNameService : UsernameService) { }
 
   ngOnInit(): void {
     // Fetch the overall score on component initialization

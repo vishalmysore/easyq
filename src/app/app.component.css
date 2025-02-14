@@ -9,6 +9,12 @@
 .as-split-area:first-child {
   background-color: #f4f4f4; /* Add a background color for the left area */
 }
+.contentnav {
+  flex-direction: column;
+  width: max-content;
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+}
 
 .content {
   padding: 20px; /* Add padding to the content section */
@@ -19,7 +25,7 @@
   margin-top: 20px;
 }
 .split-content-container {
-  margin-top: 20px;  /* Adds spacing between header and split */
+  margin-top: 50px;  /* Adds spacing between header and split */
 }
 .category-container {
   display: flex;
