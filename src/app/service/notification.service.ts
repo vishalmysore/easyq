@@ -1,14 +1,18 @@
 import { Injectable, NgZone } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import {environment} from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
+import {Notification} from '../models/notificaton.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotificationService {
   private eventSource!: EventSource;
-
+  private notificationCountSubject = new BehaviorSubject<number>(0);  // Set initial count to 0
+  notificationCount$ = this.notificationCountSubject.asObservable();
+  notificationsSubject = new BehaviorSubject<Notification[]>([]);  // To store the array of notifications
+  notifications$ = this.notificationsSubject.asObservable();  // Observable for notifications
   constructor(private http: HttpClient, private zone: NgZone) {}
 
   connect(): Observable<string> {
@@ -30,5 +34,26 @@ export class NotificationService {
 
       return () => this.eventSource.close();
     });
+  }
+  updateNotificationCount(count: number) {
+    this.notificationCountSubject.next(count);
+  }
+
+  // Increment notification count
+  incrementNotificationCount() {
+    const currentCount = this.notificationCountSubject.value;
+    this.updateNotificationCount(currentCount + 1);
+  }
+
+  // Decrement notification count
+  decrementNotificationCount() {
+    const currentCount = this.notificationCountSubject.value;
+    this.updateNotificationCount(currentCount - 1);
+  }
+
+  addNotification(notification: Notification) {
+    const currentNotifications = this.notificationsSubject.value;
+    this.notificationsSubject.next([...currentNotifications, notification]);
+    this.incrementNotificationCount();  // Update the count whenever a new notification is added
   }
 }

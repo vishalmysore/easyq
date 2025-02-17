@@ -1,8 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {ScoreService} from '../service/score.service';
 import { NgIf } from '@angular/common';
 import { WebSocketService } from '../service/websocket.service';
 import { UsernameService } from '../service/username.service';
+import { NotificationService } from '../service/notification.service';
+import { Subscription } from 'rxjs';
+import {environment} from '../../environments/environment';
+import {Notification} from '../models/notificaton.model';
 
 @Component({
   selector: 'app-score',
@@ -12,12 +16,14 @@ import { UsernameService } from '../service/username.service';
   ],
   styleUrls: ['./score.component.css']
 })
-export class ScoreComponent implements OnInit {
+export class ScoreComponent implements OnInit ,OnDestroy{
   overallScore: number | null = null;
   errorMessage: string = '';
-
+  // WebSocket subscriptions
+  private challengeSubscription: Subscription | undefined;
+  private notificationSubscription: Subscription | undefined;
   webSocketSubscription: any;
-  constructor(private scoreService: ScoreService, private webSocketService: WebSocketService,private userNameService : UsernameService) { }
+  constructor(private scoreService: ScoreService, private webSocketService: WebSocketService,private userNameService : UsernameService,private notificationService: NotificationService) { }
 
   ngOnInit(): void {
     // Fetch the overall score on component initialization
@@ -37,9 +43,44 @@ export class ScoreComponent implements OnInit {
           this.errorMessage = 'Server Error. Please Refresh the page and try again.';
         }
       );
+    this.challengeSubscription = this.webSocketService.connect('challenges').subscribe(
+      (message: any) => {
+        const data = JSON.parse(message);
+        if (data.action === 'challengeReceived') {
+          this.notificationService.incrementNotificationCount();
+        }
+      },
+      (error: any) => {
+        console.error('WebSocket error:', error);
+      }
+    );
 
+    // Notification WebSocket (for receiving new notifications)
+    this.notificationSubscription = this.notificationService.connect().subscribe(
+      (message: string) => {
+        const data = JSON.parse(message);
+        console.log("notification received "+data);
+        if (data.action === 'newTestTaken') {
 
+          const newNotification :Notification = {
+            userId: data.userId,
+            linkUrl: data.quizType === 'TOPIC'
+              ? `${environment.easyQZUrl}?url=${data.topics}`
+              : data.linkUrl,
+            currentScore: data.currentScore,
+            topics: data.topics,
+            challengeHim: 'Challenge',  // Customize button text
+          };
+          this.notificationService.addNotification(newNotification);
+        }
+      },
+      (error: any) => {
+        console.error('SSE error:', error);
+      }
+    );
   }
+
+
 
   // Method to call the service and fetch the score
   getOverallScore(): void {
@@ -53,4 +94,15 @@ export class ScoreComponent implements OnInit {
       }
     );
   }
+
+  ngOnDestroy(): void {
+        if (this.challengeSubscription) {
+        this.challengeSubscription.unsubscribe();
+      }
+      if (this.notificationSubscription) {
+        this.notificationSubscription.unsubscribe();
+      }
+}
+
+
 }

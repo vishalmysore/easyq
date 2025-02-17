@@ -23,7 +23,7 @@ export class UserService {
       userId: username,
       emailId: null,
       name: username,
-      avatar: `https://i.pravatar.cc/150?img=${Math.floor(Math.random() * 70) + 1}`,
+      avatar: `https://i.pravatar.cc/150?img=${username.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) % 70 + 1}`,
       expertTopics: ["AI", "Cybersecurity", "Machine Learning"],
       achievements: ["Top Scorer", "AI Guru", "Fastest Learner"],
       isPermanent: false

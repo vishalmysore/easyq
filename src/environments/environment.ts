@@ -4,4 +4,5 @@ export const environment = {
   wsUrl: "ws://localhost:7860/ws/",
   broadcastUrl: "http://localhost:7860/bs/",
   googleClientId: "992082477434-nbjvh0ub7ge30uj928muanlfj067726f.apps.googleusercontent.com",
+  easyQZUrl:"http://localhost:4200"
 };

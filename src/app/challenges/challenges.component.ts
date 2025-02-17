@@ -13,6 +13,7 @@ import {WebSocketService} from '../service/websocket.service';
 import { MatCard, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/material/card';
 import { MatButton } from '@angular/material/button';
 import { NotificationService } from '../service/notification.service';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'app-challenges',
@@ -58,73 +59,26 @@ export class ChallengesComponent implements OnInit, OnDestroy {
   notificationDataSource = new MatTableDataSource(this.notificationData);
 
   // WebSocket subscriptions
-  private challengeSubscription: Subscription | undefined;
-  private notificationSubscription: Subscription | undefined;
+
 
   constructor(private webSocketService: WebSocketService,private notificationService: NotificationService) {}
-
+  notificationSubscription: Subscription | undefined;
   ngOnInit(): void {
-    // Subscribe to WebSocket channels for both challenges and notifications
-
-    // Challenge WebSocket (for receiving score updates or challenges)
-    this.challengeSubscription = this.webSocketService.connect('challenges').subscribe(
-      (message: any) => {
-        const data = JSON.parse(message);
-        if (data.action === 'scoreUpdated') {
-          this.updateUserScore(data.userId, data.newScore);  // Update score if necessary
-        }
-      },
-      (error: any) => {
-        console.error('WebSocket error:', error);
-      }
-    );
-
-    // Notification WebSocket (for receiving new notifications)
-    this.notificationSubscription = this.notificationService.connect().subscribe(
-      (message: string) => {
-        const data = JSON.parse(message);
-        console.log("notification received "+data);
-        if (data.action === 'newTestTaken') {
-          this.addNotification(data);  // Add a new notification when a test is taken
-        }
-      },
-      (error: any) => {
-        console.error('SSE error:', error);
+    // Subscribe to notifications from NotificationService
+    this.notificationSubscription = this.notificationService.notificationsSubject.subscribe(
+      (notifications) => {
+        console.log("Notifications received:", notifications);
+        this.notificationData = notifications; // Update notification data with the latest notifications
+        this.notificationDataSource = new MatTableDataSource(this.notificationData); // Refresh the table data
       }
     );
   }
 
   ngOnDestroy(): void {
-    // Unsubscribe from WebSocket connections to avoid memory leaks
-    if (this.challengeSubscription) {
-      this.challengeSubscription.unsubscribe();
-    }
+    // Unsubscribe from notifications to avoid memory leaks
     if (this.notificationSubscription) {
       this.notificationSubscription.unsubscribe();
     }
-  }
-
-  // Method to update the score when a WebSocket sends updated score
-  updateUserScore(userId: string, newScore: number): void {
-    const user = this.userData.find(u => u.userId === userId);
-    if (user) {
-      user.currentScore = newScore;
-      this.userDataSource = new MatTableDataSource(this.userData);  // Refresh the user table data
-    }
-  }
-
-  // Add a new notification when a test is taken
-  addNotification(notificationData: any): void {
-    const newNotification = {
-      userId: notificationData.userId,
-      linkUrl: notificationData.linkUrl,
-      currentScore: notificationData.currentScore,
-      topics: notificationData.topics,
-      challengeHim: 'Challenge',  // Button text can be customized
-    };
-    console.log(newNotification);
-    this.notificationData.push(newNotification);
-    this.notificationDataSource = new MatTableDataSource(this.notificationData);  // Refresh the notification table data
   }
 
   // Method to handle user challenge action (e.g., opening challenge interface)

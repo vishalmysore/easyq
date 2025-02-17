@@ -1,4 +1,4 @@
-<div class="user-container" *ngIf="user">
+<div class="user-container"  *ngIf="user$ | async as user; else loading">
   <!-- Profile Card -->
   <mat-card class="user-profile">
     <mat-card-header>
@@ -54,3 +54,6 @@
     </table>
   </mat-card>
 </div>
+<ng-template #loading>
+  <p>Loading user details...</p>
+</ng-template>

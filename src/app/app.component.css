@@ -1,3 +1,4 @@
+
 ::ng-deep .as-split-area {
   padding: 10px; /* Adds some space around the content */
 }
@@ -25,7 +26,8 @@
   margin-top: 20px;
 }
 .split-content-container {
-  margin-top: 50px;  /* Adds spacing between header and split */
+  margin-top: 50px;
+
 }
 .category-container {
   display: flex;

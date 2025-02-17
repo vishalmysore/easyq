@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { CommonModule, NgClass, NgForOf, NgIf, NgOptimizedImage } from '@angular/common';
+import { CommonModule, NgClass, NgForOf, NgIf, NgOptimizedImage, NgStyle } from '@angular/common';
 import { QuizService } from './service/quiz.service';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -45,7 +45,7 @@ import { MoreCategoriesComponent } from './more-categories/more-categories.compo
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'], // Note: This should be `styleUrls`, not `styleUrl`
   standalone: true,
-  imports: [SplitComponent, SplitAreaComponent, MatProgressSpinner, RouterOutlet, FormsModule, NgForOf, NgIf, NgClass, UsergenComponent, EasyqheaderComponent, NgOptimizedImage, FooterComponent, MatButton, MatTooltip, ChallengesComponent, MoreCategoriesComponent]// Add FormsModule here
+  imports: [  MatProgressSpinner, RouterOutlet, FormsModule, NgForOf, NgIf, NgClass, UsergenComponent, EasyqheaderComponent, NgOptimizedImage, FooterComponent, MatButton, MatTooltip,  MoreCategoriesComponent]// Add FormsModule here
 })
 export class AppComponent implements OnInit {
   story: Story | null = null;
@@ -141,10 +141,14 @@ export class AppComponent implements OnInit {
       console.log("user setup done "+this.setupComplete);
     });
     this.route.queryParams.subscribe(params => {
-      this.articleUrl = params['url'] || document.referrer || null;
+      this.articleUrl = this.route.snapshot.queryParams['url'] || document.referrer || null;
+      console.warn(this.articleUrl);
       console.log(window.location.href);
       console.log(document.referrer);
       if(window.location.href.startsWith(<string>this.articleUrl)){
+        this.articleUrl = null;
+      }
+      if (this.articleUrl === 'https://www.linkedin.com/') {
         this.articleUrl = null;
       }
       if (!this.articleUrl) {
@@ -170,6 +174,7 @@ export class AppComponent implements OnInit {
     console.log("getting user");
     console.log(this.user);
   }
+
   openTrendingArticlesDialog(): void {
     console.log('openTrendingArticlesDialog');
     this.dialog.open(TrendingArticlesComponent, {

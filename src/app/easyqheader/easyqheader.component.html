@@ -1,3 +1,10 @@
 <div class="top-left-header">
   <a mat-button class="custom-mat-button" href="https://github.com/vishalmysore/easyq" target="_blank">What is EasyQZ?</a>
- </div>
+  <div *ngIf="flashMessageForMobile" class="flash-message">
+    {{ flashMessageForMobile }}
+  </div>
+  <button mat-icon-button (click)="openNotificationDialog()">
+    <mat-icon>notifications</mat-icon>
+    <span class="mat-badge-content" *ngIf="notificationCount > 0">{{ notificationCount }}</span>
+  </button>
+</div>
