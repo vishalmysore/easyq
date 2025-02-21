@@ -1,19 +1,67 @@
+
 .user-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 20px;
   padding: 20px;
+  overflow-y: auto;
+  overflow-x: auto;
+
+}
+.loading-user-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;  /* Full viewport height */
+  flex-direction: column;
+  text-align: center;
 }
 
+.loading-user-container p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  color: #555;  /* Grey color for the text */
+}
+
+mat-spinner {
+  margin-top: 20px;
+}
 .user-profile {
   width: 400px;
   text-align: center;
+  color: white;
+
+}
+.chip-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;               /* Space between chips */
+  justify-content: center; /* Optional: Center-align the chips */
+}
+.wrapped-chip {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap; /* Allows content to wrap */
+  max-width: 100%; /* Prevents overflow */
+  white-space: normal !important; /* Forces text wrapping */
+  word-break: break-word;
+  padding: 8px;
+  gap: 8px;
+}
+
+
+
+.chip-text {
+  display: block; /* Ensures text wraps properly */
+  overflow-wrap: break-word;
+  max-width: 100%; /* Prevents text from extending beyond chip */
 }
 
 .achievements-card {
   width: 400px;
   text-align: center;
+  color: white;
 }
 
 .test-results-card {
@@ -79,7 +127,33 @@ table {
   align-items: center;
 }
 @media (max-width: 600px) {
-  mat-card {
-    max-width: 90%; /* Adjust width on smaller screens */
+  .user-profile,
+  .achievements-card {
+    width: 90%; /* Adjust width to 90% for small screens */
+  }
+
+  .test-results-card {
+    width: 90%; /* Adjust table width for smaller screens */
+  }
+
+  .mat-card-title {
+    font-size: 16px; /* Adjust font size for smaller screens */
+  }
+
+  .mat-card-content {
+    padding: 10px; /* Reduce padding for small screens */
+  }
+
+  .mat-chip {
+    font-size: 12px; /* Smaller font size for chips */
+  }
+
+  .loading-user-container p {
+    font-size: 1rem; /* Reduce font size for loading text */
+  }
+
+  .close-btn {
+    top: 5px; /* Adjust close button position on smaller screens */
+    right: 5px;
   }
 }

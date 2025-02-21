@@ -1,3 +1,6 @@
+import { ArticleDetails } from './user-performance-data.model';
+
+
 export interface User {
   userId: string;
   emailId: string | null;
@@ -6,4 +9,5 @@ export interface User {
   expertTopics: string[];
   achievements: string[];
   isPermanent: boolean;
+  articles: ArticleDetails[];
 }

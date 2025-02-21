@@ -26,7 +26,8 @@ export class UserService {
       avatar: `https://i.pravatar.cc/150?img=${username.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) % 70 + 1}`,
       expertTopics: ["AI", "Cybersecurity", "Machine Learning"],
       achievements: ["Top Scorer", "AI Guru", "Fastest Learner"],
-      isPermanent: false
+      isPermanent: false,
+      articles :[]
     };
 
     const endpoint = `${environment.apiUrl}createNewTempUser`;

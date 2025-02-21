@@ -120,11 +120,17 @@ export class UsergenComponent implements OnInit, OnDestroy {
   }
 
   openUserDetailsDialog(): void {
-    this.dialog.open(UserDetailsComponent, {
+    const dialogRef = this.dialog.open(UserDetailsComponent, {
       width: '80%',
       maxWidth: '600px',
+      maxHeight: '80vh',
       height: 'auto',
       data: { username: this.username }
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      console.log("user Dialog closed");
+      // Optionally handle additional actions after dialog is closed
     });
   }
 

@@ -4,7 +4,7 @@
     <mat-card-header>
       <img mat-card-avatar [src]="user.avatar" alt="User Avatar">
       <mat-card-title>
-        {{ user.name }}
+        {{ user.userId }}
         <button *ngIf="!user.isPermanent" mat-button color="primary" (click)="convertToPermanentAccount()">
           (Create Permanent Account)
         </button>
@@ -21,13 +21,43 @@
       </mat-chip>
     </mat-card-content>
   </mat-card>
+<mat-card class="user-profile" >
+  <mat-card-content>
+    <!-- Search Box for RAG Search -->
+    <div class="search-rag-container">
+      <mat-form-field appearance="outline" class="search-rag-box ">
+        <input matInput [(ngModel)]="searchQuery" placeholder="Search your results for ex: my weak areas" />
+      </mat-form-field>
 
+      <button mat-raised-button color="primary" class="search-rag-btn" (click)="ragSearch()">
+        🔎 Search
+      </button>
+    </div>
+
+
+
+    <!-- Display Search Results -->
+    <!-- Display Search Results -->
+    <div *ngIf="(searchResults?.length ?? 0) > 0" class="search-results">
+      <h3>Search Results</h3>
+      <div class="search-results-list">
+        <div *ngFor="let result of searchResults" class="search-result-item">
+          {{ result }}
+        </div>
+      </div>
+    </div>
+
+  </mat-card-content>
+</mat-card>
   <!-- Achievements Card -->
   <mat-card class="achievements-card">
     <mat-card-title>Achievements</mat-card-title>
-    <mat-chip *ngFor="let achievement of user?.achievements" color="accent">
-      <mat-icon>star</mat-icon> {{ achievement }}
+    <div class="chip-container">
+    <mat-chip *ngFor="let achievement of user?.achievements" color="accent" class="wrapped-chip" >
+      <mat-icon>star</mat-icon>
+      <span>{{ achievement }}</span>
     </mat-chip>
+    </div>
   </mat-card>
 
   <!-- Test Results Table -->
@@ -55,5 +85,9 @@
   </mat-card>
 </div>
 <ng-template #loading>
-  <p>Loading user details...</p>
+  <div class="loading-user-container">
+    <p>{{ currentMessage }}</p>
+
+    <mat-spinner *ngIf="loading$ | async" diameter="50"></mat-spinner>
+  </div>
 </ng-template>

@@ -16,6 +16,36 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 /* Container for the Challenges Section */
 /* app-challenges.component.css */
+.search-rag-container {
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  align-items: center; /* Center horizontally */
+  gap: 1px; /* Spacing between input and button */
+  margin-bottom: 35px;
+  margin-top: 25px;
+}
+
+.search-rag-box {
+  width: 100%;
+  max-width: 400px; /* Adjust as needed */
+}
+
+.search-rag-box input::placeholder {
+  font-size: 11px;
+  font-family: 'Courier New', monospace;
+  color: #888;
+}
+
+.search-rag-btn {
+  padding: 10px 20px;
+  font-size: 16px;
+}
+
+.search-rag-results h3 {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 10px;
+}
 .signup-btn {
   padding: 0.5rem 1.2rem;
   border: none;
@@ -167,4 +197,50 @@ button:hover {
     min-width: auto;
     margin-right: 2rem;
   }
+  .challenges-container {
+    padding: 10px; /* Adjust padding for small screens */
+    gap: 10px; /* Reduced gap for better fitting */
+  }
+
+  .notification-card {
+    font-size: 0.75rem; /* Reduce font size */
+  }
+
+  .user-table-card {
+    font-size: 0.85rem; /* Smaller font size */
+  }
+
+  .challenges-mat-card-title {
+    font-size: 0.7rem; /* Smaller title font size */
+  }
+
+  .challenges-row-data, .challenges-row-data-header {
+    font-size: 0.6rem; /* Adjust row font size for better readability */
+  }
+
+  .mat-header-row {
+    font-size: 0.75rem; /* Adjust header row font size */
+  }
+
+  .mat-cell {
+    font-size: 0.75rem; /* Smaller font size for table cells */
+  }
+
+  .mat-header-cell {
+    font-size: 0.75rem; /* Smaller font size for header cells */
+  }
+
+  button {
+    font-size: 0.5rem; /* Adjust button text size */
+    padding: 5px 8px; /* Adjust button padding */
+  }
+
+  mat-table {
+    font-size: 0.75rem; /* Reduce font size of table */
+  }
+
+  .mat-chip {
+    font-size: 12px; /* Smaller chips for better fit */
+  }
+
 }

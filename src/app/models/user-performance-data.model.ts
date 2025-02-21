@@ -3,6 +3,14 @@ export interface ArticleToReadAgain {
   specificReason: string;
 }
 
+export interface ArticleDetails {
+  testName: string;
+  score: number;
+  dateTaken: string;
+  mainTopics: string;
+  url: string;
+}
+
 export interface UserPerformanceData {
   topSkills: string[];
   bottomSkills: string[];
@@ -13,4 +21,6 @@ export interface UserPerformanceData {
   userId: string;
   emailId: string;
   avatar: string;
+  verified: boolean;
+  articles: ArticleDetails[];
 }
