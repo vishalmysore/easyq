@@ -1,0 +1,5 @@
+.center-header {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%); /* Centers the component */
+}

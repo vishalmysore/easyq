@@ -37,6 +37,10 @@ import { SplitAreaComponent, SplitComponent } from 'angular-split';
 import { ChallengesComponent } from './challenges/challenges.component';
 import { UsernameService } from './service/username.service';
 import { MoreCategoriesComponent } from './more-categories/more-categories.component';
+import { CenterHeaderComponent } from './center-header/center-header.component';
+import { MatIcon } from '@angular/material/icon';
+import { MatFormField, MatPrefix, MatSuffix } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
 
 
 
@@ -45,7 +49,7 @@ import { MoreCategoriesComponent } from './more-categories/more-categories.compo
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'], // Note: This should be `styleUrls`, not `styleUrl`
   standalone: true,
-  imports: [  MatProgressSpinner, RouterOutlet, FormsModule, NgForOf, NgIf, NgClass, UsergenComponent, EasyqheaderComponent, NgOptimizedImage, FooterComponent, MatButton, MatTooltip,  MoreCategoriesComponent]// Add FormsModule here
+  imports: [MatProgressSpinner, RouterOutlet, FormsModule, NgForOf, NgIf, NgClass, UsergenComponent, EasyqheaderComponent, NgOptimizedImage, FooterComponent, MatButton, MatTooltip, MoreCategoriesComponent, CenterHeaderComponent, MatIcon, MatFormField, MatInput, MatSuffix]// Add FormsModule here
 })
 export class AppComponent implements OnInit {
   story: Story | null = null;
@@ -175,33 +179,7 @@ export class AppComponent implements OnInit {
     console.log(this.user);
   }
 
-  openTrendingArticlesDialog(): void {
-    console.log('openTrendingArticlesDialog');
-    this.dialog.open(TrendingArticlesComponent, {
-      width: '80%', // Adjust the width for your preference
-      maxWidth: '600px', // Set max width for popup
-      height: 'auto', // Auto height or specify
-      data: { username: 'hello' } // Pass data if needed
-    });
-  }
-  openTrendingTopicsDialog(): void {
-    console.log('openUserDetailsDialog');
-    this.dialog.open(TrendingArticlesComponent, {
-      width: '80%', // Adjust the width for your preference
-      maxWidth: '600px', // Set max width for popup
-      height: 'auto', // Auto height or specify
-      data: { username: 'hello' } // Pass data if needed
-    });
-  }
-  openAuthorInisightDialog(): void {
-    console.log('openUserDetailsDialog');
-    this.dialog.open(AuthorInsightsComponent, {
-      width: '80%', // Adjust the width for your preference
-      maxWidth: '600px', // Set max width for popup
-      height: 'auto', // Auto height or specify
-      data: { username: 'hello' } // Pass data if needed
-    });
-  }
+
 
   openStoryPopup() {
     this.isLoading = true;

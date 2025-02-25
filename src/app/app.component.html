@@ -83,7 +83,7 @@
     width: 100px; /* Adjust width if needed */
     height: auto; /* Maintain aspect ratio */
     vertical-align: middle; /* Align it vertically with the text */
-    margin-top: 20px;
+    margin-top: 0.4rem;
   }
 
 
@@ -134,7 +134,7 @@
 
   .left-side {
     display: flex;
-    margin-top: 0.1px;
+    margin-top: 0.1rem;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -244,6 +244,7 @@
     top: 0;
     left: 0;
     width: 100%;
+    margin-bottom: 0.1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -356,17 +357,18 @@
 
 </style>
 <div class="header">
-  <app-easyqheader></app-easyqheader>
+  <app-easyqheader>[articleUrl]="articleUrl"</app-easyqheader>
+  <app-center-header></app-center-header>
   <app-usergen></app-usergen>
 </div>
 <main class="main">
 
   <div class="content">
+    <p>Enhance Your Knowledge with AI-Driven Insights</p>
+    <img ngSrc="easylogo2.png" class="angular-logo" alt="Angular Logo" priority width="100" height="200">
 
     <div class="left-side">
-      <img ngSrc="easylogo2.png" class="angular-logo" alt="Angular Logo" priority width="187" height="245">
-      <p>Enhance Your Knowledge with AI-Driven Insights</p>
-      <div class="left-side">
+
 
         <div class="category-container">
           <div class="category-card" (click)="openStoryPopup()">
@@ -402,13 +404,19 @@
           <p class="loading-message">{{ loadingMessages[currentMessageIndex] }}</p>
         </div>
         <p>{{ getFunnyMessage() }}</p>
-        <input
-          type="text"
-          [(ngModel)]="inputValue"
-          [placeholder]="getInputPlaceHolder()"
-          matTooltip="You can provide any article link from medium, linkedin etc or enter the topic or keywords"
-          style="width: 400px;height: 100px; padding: 8px; font-size: 16px;" />
 
+        <mat-form-field appearance="outline">
+
+          <input
+            matInput
+            type="text"
+            [(ngModel)]="inputValue"
+            [placeholder]="getInputPlaceHolder()"
+
+            matTooltip="You can provide any article link from Medium, LinkedIn, etc., or enter the topic or keywords"
+            style="width: 400px; height: 50px; padding: 8px; font-size: 9px; color: #333;" />
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
         <div [ngClass]="{ 'disabled-container': isLoading }" class="button-container">
           <button mat-raised-button color="primary" (click)="navigateToEndpoint(1)">
             🚀 Easy
@@ -422,7 +430,7 @@
           <button mat-raised-button color="primary" (click)="navigateToEndpoint(4)">
             🌍 Crazy?
           </button>
-        </div>
+
 
 
       </div>
@@ -436,17 +444,6 @@
 
       </div>
       <div class="pill-group">
-
-        <button  mat-button color="primary" (click)="openTrendingArticlesDialog()">
-          📰 Trending Articles
-        </button>
-        <button  mat-button color="primary" (click)="openTrendingTopicsDialog()">
-          📈Trending Topics
-        </button>
-        <button  mat-button color="primary" (click)="openAuthorInisightDialog()">
-          ✍️ I am an Author
-        </button>
-
 
       <div class="bottom-side" *ngIf="questions">
         <h3>Quiz Questions:</h3>

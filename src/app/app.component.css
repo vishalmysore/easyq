@@ -6,7 +6,18 @@
 ::ng-deep .as-split {
   border: none; /* Optional: removes any border between the split areas */
 }
+mat-form-field {
+  width: 400px;
+}
+input::placeholder {
+  color: gray !important;
+  opacity: 1;
+}
 
+mat-icon {
+  color: gray;
+  cursor: pointer;
+}
 .as-split-area:first-child {
   background-color: #f4f4f4; /* Add a background color for the left area */
 }
@@ -18,8 +29,8 @@
 }
 
 .content {
-  padding: 20px; /* Add padding to the content section */
-  margin-top: 20px;
+  padding: 10px; /* Add padding to the content section */
+  margin-top: 0.01rem;
 }
 .contentleft {
   padding: 20px; /* Add padding to the content section */
@@ -33,7 +44,7 @@
   display: flex;
   gap: 10px;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 1px;
 }
 .chat-container {
   flex: 1; /* Smaller width for chat */
